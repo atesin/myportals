@@ -1,0 +1,31 @@
+name: MyPortals
+main: cl.netgamer.myportals.MyPortals
+version: 9
+
+commands:
+   portal:
+      description: implements user created portals.
+      usage: "/portal: show available subcommands"
+      #permission: <plugin name>.basic
+      #permission-message: You don't have <permission>
+
+# aqui tambien se configuran los permisos
+# no usar la letra enye
+
+# changelog:
+# 1 : initial release
+# 2 : fixed load portals with empty name, now uses semicolon as owner;portalName separator
+# 3 : fixed some color messages
+# 4 : better java 6 compliance
+# 5 : added experience points cost to teleporting (add "xpCost: 5" to config.yml)
+# 6 : code optimizations, back to ":" fullname separator (but file still uses ";"), new list and info output format
+# 7 : fix create and destroy portal blocks bugs
+# 8 : dropped java6 support, changes in data.yml format (now saves name and owner separately), TabText optimizations
+# 9 : custom worlds support
+
+# todo:
+# - fix red lamp light
+# - custom alias, dynmap support, collapse+rebuild portals, permissions,
+# - optimize tabtext, more worlds, self containing water, info any portal, etc.
+# - suggest your own at bukkit dev page
+

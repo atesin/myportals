@@ -1,0 +1,57 @@
+# localization file, if displays weird characters save it as ansi
+# you can configure language at config.yml; then copy, rename and edit this file
+# please submit your own at bukkit dev page
+
+help1: |
+  When distances becomes large, minecraft can turn boring.
+  MyPortals is a personal teleporting plugin, which you can
+  build a portal like structure, activate and config; ask
+  your server admin for the structure shape and materials.
+  Once activated you can link other portals and use it
+  for fast travelling. Type '/portal 2' to get help page 2.
+help2: |
+  command format: '/portal subcommand (arg1) (arg2)...'
+  most subcommands must be typed while looking a portal base
+    list (args...) : list portals, type '/portal 3' for help
+    info : displays information about the current portal
+    name N : gives or changes the current portal name to N
+    dest D : sets or changes the current portal destination to D
+    give P : gives your public portal to online player P
+    public, lock, hide, private : adds privacy, see '/portal 4'
+help3: |
+  '/portal list (owner|*) (page)' :
+    owner: just list portals of player 'owner'
+    *    : list all other players portals
+    page : display desired page number when list is large
+    defaults: lists my own portals, page 1
+      displays all my portals with privacy info
+      displays non hidden other's portals with owner info
+help4: |
+  '/portal dest destPortal' :
+    you can link other player portal with 'otherPlayer;hisPortal'
+  privacy : you can do anything with your portals, but if not :
+    public : same as above, except use subcommand 'give'
+    locked : same as above, except all other subcommands
+    hidden : same as above, except be listed in 'list'
+    private: same as above, except be teleported to
+# try at most 8 characters for public, locked, hidden and private
+tags: ;locked;hidden;private;Location;Owner;Name;Privacy;Destination
+bePlayer: you must be an online player to use this subcommand
+argsNotMatch: invalid arguments number for this subcommand
+unknownCmd: unknown subcommand, try just /portal
+listHead: Owner %1$s, Page %2$s of %3$s
+tooFar: the block you are looking is too far to be selected
+lookNotPortal: the block you are looking is not a portal base
+hidden: hidden portal, can not display info
+locked: you cannot modify a portal that is locked and not yours
+invalidName: invalid name, only a-z, A-Z, 0-9 and ._- , 2 to 12
+busyName: the owner already has a portal with same name
+namedOk: portal successfully named
+nameNotFound: portal name not found
+diffrentWorlds: you can not link diffrent world portals for now
+unnamed: give the portal a name first
+destOk: destination successfully changed
+privacyOk: privacy successfully changed
+notYours: you can not give a portal that is not yours
+offlinePlayer: reciever player is not online
+giveOk: portal successfully transferred
