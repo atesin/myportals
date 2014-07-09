@@ -3,7 +3,7 @@ myportals
 
 craftbukkit teleportation plugin
 
-i think maybe you can download entire "MyPortals" folder as zip, and import directly into eclipse as an existing project, correct me if not
+i think maybe you can download entire project as zip and import directly into eclipse as an existing project, correct me if i am wrong
 
 i am not a java/eclipse/github expert.. as many concepts are new to me, i fear someday i push the wrong button and mess all the files .. if you understand these things please tell me to ask you some things when in doubt and help me, thanks
 
