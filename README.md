@@ -10,5 +10,3 @@ i am not a java/eclipse/github expert.. as many concepts are new to me, i fear s
 project page or MyPortals are here -> http://dev.bukkit.org/bukkit-plugins/myportals/ ... there you can read more info and post any message you want, and subscribe to stay informed
 
 i intended this plugin with gplv3 license .. i like free software (as in freedom) and its philosophy, i wished make this plugin colaborative, i learned a lot by making this plugin and want everybody learns and make this plugin grow
-
-atesin#gmail,com
