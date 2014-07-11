@@ -4,6 +4,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.avaje.ebean.validation.Length;
+
 /**<pre>
  * TabText: class to write column formatted text in minecraft chat area
  * 
@@ -16,20 +18,21 @@ import java.util.Map;
  * - you can use some format codes, see http://minecraft.gamepedia.com/Formatting_codes
  * - DO NOT USE LOWERCASE CODES OR BOLD FORMAT BECAUSE IT CAN BREAK SPACING
  * 
+ * - // example
  * - multilineString  = "PLAYER------`RATE------`RANK------\n";
  * - multilineString += "§EJohn`10.01`1§R\n";
  * - multilineString += "Doe`-9.30`2";
  * 
  * - TabText tt = new TabText(multilineString);
- * - int numPages = tt.setPageHeight(pageHeight); // set page height (recommended = 10) to get number of pages
+ * - int numPages = tt.setPageHeight(pageHeight); // set page height and get number of pages
  * - tt.setTabs(10, 18, ...); // horizontal tabs positions
- * - tt.sortByFields(2, -3, 1); // sort by second column, then by third descending, then by first
+ * - tt.sortByFields(-2, 1); // sort by second column descending, then by first
  * - printedText = tt.getPage(desiredPage, (boolean) monospace); // get your formatted page, for console or chat area
  * 
  * see each method javadoc for additional details 
  * 
- * @version 4
- * @author atesin#gmail.com
+ * @version 5
+ * @author atesin#gmail,com
  * </pre>
  */
 public class TabText{
@@ -39,21 +42,21 @@ public class TabText{
 	private int numPages;
 	private String[] lines;
 	private Map<Integer, String> charList = new HashMap<Integer, String>(){{
-		put(7, "@~");
-		put(5, "\"()*<>fk{}");
-		put(4, " I[]t");
-		put(3, "'`l");
-		put(2, "!.,:;i|");
 		put(-6, "§");
+		put(2, "!.,:;i|");
+		put(3, "'`l");
+		put(4, " I[]t");
+		put(5, "\"()*<>fk{}");
+		put(7, "@~");
 	}};
 	
-	// CONSTRUCTOR METHODS
+	// CONSTRUCTOR METHOD
 	
 	public TabText(String multilineString){
 		setText(multilineString);
 	}
 	
-	// SETTER AND GETTER METHODS
+	// SETTER METHODS
 	
 	/** can reuse the object to save resources by calling this method */
 	public void setText(String multilineString){
@@ -91,6 +94,8 @@ public class TabText{
 	 *  @param charsWidth horizontal space in pixels each char occupies
 	 */
 	public void addChars(String charsList, int charsWidth){
+		if (charsWidth == 6) return;
+		if (!charList.containsKey(charsWidth)) charList.put(charsWidth, "");
 		charList.get(charsWidth).concat(charsList);
 	}
 	

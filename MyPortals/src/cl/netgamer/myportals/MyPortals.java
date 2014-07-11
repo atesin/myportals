@@ -32,6 +32,8 @@ public final class MyPortals extends JavaPlugin{
 	public void onEnable(){
 		logger = getLogger();
 		this.saveDefaultConfig();
+		if (getConfig().getBoolean("disabled")) return;
+		
 		allowedWorlds = getConfig().getConfigurationSection("allowedWorlds").getValues(false);
 		interWorlds = getConfig().getBoolean("interWorlds");
 		xpCost = getConfig().getInt("xpCost");
