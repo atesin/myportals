@@ -2,7 +2,7 @@
 # if console throws exceptions, check your syntax
 
 # an easy way to disable plugin without restarting server
-disabled = false;
+disabled: false
 
 # locale prefix. you can also copy, rename and edit lang-EN.yml
 locale: EN
