@@ -175,6 +175,10 @@ public final class MyPortals extends JavaPlugin{
 		return "giveOk";
 	}
 	
+	protected void rebuild(){
+		for (Portal p: portals.values()) shape.rebuild(p);
+	}
+	
 	// UTILITY METHODS
 	
 	// console log, general use

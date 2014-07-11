@@ -4,8 +4,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.avaje.ebean.validation.Length;
-
 /**<pre>
  * TabText: class to write column formatted text in minecraft chat area
  * 

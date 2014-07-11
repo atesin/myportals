@@ -84,6 +84,10 @@ public class Shape {
 		loop(portal.getLocation(), portal.getFacing(), deactivate, new ShapeReplace());
 	}
 	
+	void rebuild(Portal portal){
+		loop(portal.getLocation(), portal.getFacing(), active, new ShapeReplace());
+	}
+	
 	// get portal blocks on run time
 	ArrayList<Location> getPortalBlocks(Location loc, int facing){
 		ShapeGetPortalBlocks inter = new ShapeGetPortalBlocks();

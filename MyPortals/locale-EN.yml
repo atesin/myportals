@@ -26,6 +26,7 @@ help3: |
     defaults: lists my own portals, page 1
       displays all my portals with privacy info
       displays non hidden other's portals with owner info
+   'portal rebuild' : rebuild all portal shapes (console only)
 help4: |
   '/portal dest destPortal' :
     you can link other player portal with 'otherPlayer;hisPortal'
@@ -55,3 +56,7 @@ privacyOk: privacy successfully changed
 notYours: you can not give a portal that is not yours
 offlinePlayer: reciever player is not online
 giveOk: portal successfully transferred
+beConsole: this subcommand can only be used at server console
+mustConfirm: you must confirm by typing '%1$s confirm'
+rebuilding: rebuilding portals, please wait...
+rebuilded: portals rebuilding finished

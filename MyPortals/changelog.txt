@@ -1,10 +1,15 @@
 
 version history:
 
+v11
+- rebuild portals support
+- self contained water
+- default shape changed by a small version nether portal
+
 v10
 - redlamp light fixed (placing fire generates a pulse and lamp gets off)
 - split changelog from plugin.yml to this file
-- tabtext optimizations
+- tabtext optimizations (final?)
 
 v9
 - custom worlds support, with CHANGES IN CONFIG.YML
@@ -42,7 +47,11 @@ v1
 
 todo:
 
-- custom alias, dynmap support, collapse+rebuild portals, permissions,
-- self containing water, info any portal, etc.
+- info any portal
+- custom alias
+- dynmap support
+- permissions
+- portal particles
+- etc
 - suggest your own at bukkit dev page
 

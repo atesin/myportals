@@ -43,6 +43,10 @@ public class Lang {
 		msg.put("notYours", "§D");
 		msg.put("offlinePlayer", "§D");
 		msg.put("giveOk", "§B");
+		msg.put("beConsole", "§D");
+		msg.put("mustConfirm", "§D");
+		msg.put("rebuilding", "§E");
+		msg.put("rebuilded", "§B");
 		
 		for (String key: msg.keySet()) msg.put(key, msg.get(key)+conf.getConfig().getString(key));
 	}

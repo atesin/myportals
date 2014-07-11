@@ -2,7 +2,7 @@
 # if console throws exceptions, check your syntax
 
 # an easy way to disable plugin without restarting server
-disabled: false
+#disabled: true
 
 # locale prefix. you can also copy, rename and edit lang-EN.yml
 locale: EN
@@ -21,12 +21,10 @@ xpCost: 5
 
 # portal structure
 shapeInactive:
-  center: [123, 51, 0]
-  front: [null, 113, 113]
-  back: [null, 113, 113]
-  sides: [null, 113, 113]
+  center: [123, 51, 0, 49]
+  sides: [null, 49, 49]
 shapeActivate:
-  center: [124, 9, 9]
+  center: [124, 9, 9, 49]
 
 
 # 
@@ -96,25 +94,26 @@ shapeActivate:
 # shapeActivate:
 #   center: [null, 9, 9]
 #
-# SOME USEFUL MATERIALS:
+# SOME USEFUL BLOCKS:
 #
-# 9: fixed water block (DON'T USE ID 8, SEE NOTES BELOW!)
-# 89: glowstone block
-# 86: lighted pumpkin block
-# 48: mossy cobblestone block
-# 51: fire block
+# 9: fixed water (DON'T USE ID 8, SEE NOTES BELOW!)
+# 89: glowstone
+# 86: pumpkin
+# 48: mossy cobblestone
+# 49: obsidian
 # 50: torch placed in any direction
-# 50.05: top placed torch
+# 50.05: top placed
+# 51: fire
 # 44: half block (slab) of any material
 # 44.06: nether brick half block
 # 76: redstone torch
 # 55: redstone wire
 # 85: wooden fence
-# 49: obsidian block
-# 112: nether brick block
+# 91: pumpkin lamp
+# 112: nether brick
 # 113: nether brick fence
-# 123: redstone lamp off block
-# 124: redstone lamp on block
+# 123: redstone lamp off
+# 124: redstone lamp on
 # 
 # WATER NOTES:
 #

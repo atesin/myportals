@@ -54,7 +54,7 @@ public class MyCmd implements CommandExecutor{
 			
 			
 			// validate sender
-			if (!subCmd.equals("list") && !(sender instanceof Player)){
+			if (!subCmd.equals("list") && !subCmd.equals("rebuild") && !(sender instanceof Player)){
 				sender.sendMessage("portal "+args[0]+": "+msg("bePlayer"));
 				return true;
 			}
@@ -71,7 +71,6 @@ public class MyCmd implements CommandExecutor{
 			case "2":
 			case "3":
 			case "4":
-			case "info":
 				if (args.length != 1){
 					sender.sendMessage("portal "+args[0]+": "+msg("argsNotMatch"));
 					return true;
@@ -88,13 +87,24 @@ public class MyCmd implements CommandExecutor{
 				}
 				break;
 				
-			// up to 2 subparameters: list
+			// up to 1 subparameter: info, rebuild
+			case "info":
+			case "rebuild":
+				if (args.length > 2){
+					sender.sendMessage("portal "+args[0]+": "+msg("argsNotMatch"));
+					return true;
+				}
+				break;
+				
+				// up to 2 subparameters: list
 			case "list":
 				if (args.length > 3){
 					sender.sendMessage("portal "+args[0]+": "+msg("argsNotMatch"));
 					return true;
 				}
 				break;
+				
+			// unknown subcommand
 			default:
 				sender.sendMessage("portal "+args[0]+": "+msg("unknownCmd"));
 				return true;
@@ -112,7 +122,7 @@ public class MyCmd implements CommandExecutor{
 				return true;
 			}
 			
-			// list can be performed by anyone
+			// list: can be performed by anyone
 			if (subCmd.equals("list")){
 				// parameters
 				String owner; 
@@ -164,6 +174,30 @@ public class MyCmd implements CommandExecutor{
 				return true;
 			}
 			
+			
+			// rebuild
+			if (subCmd.equals("rebuild")){
+				
+				// only by console
+				if (!sender.getName().equals("CONSOLE")){
+					sender.sendMessage("portal rebuild: "+msg("beConsole"));
+					return true;
+				}
+
+				// did not confirm
+				if (args.length < 2 || !args[1].equalsIgnoreCase("confirm")){
+					sender.sendMessage("portal rebuild: "+String.format(msg("mustConfirm"), "portal rebuild"));
+					return true;
+				}
+				
+				// rebuild portals
+				sender.sendMessage("portal rebuild: "+msg("rebuilding"));
+				plugin.rebuild();
+				sender.sendMessage("portal rebuild: "+msg("rebuilded"));
+				return true;
+			}
+			
+			
 			// get player
 			Player player = (Player) sender;
 			// get target location
@@ -207,7 +241,7 @@ public class MyCmd implements CommandExecutor{
 				return true;
 				
 			}
-
+			
 		}
 		return true;
 	}

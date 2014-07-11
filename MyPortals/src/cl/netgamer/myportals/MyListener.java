@@ -15,12 +15,12 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockBurnEvent;
 import org.bukkit.event.block.BlockCanBuildEvent;
+import org.bukkit.event.block.BlockFromToEvent;
 import org.bukkit.event.block.BlockPhysicsEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.block.BlockRedstoneEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.player.PlayerBucketFillEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.potion.PotionEffect;
@@ -71,6 +71,12 @@ public final class MyListener implements Listener{
 	@EventHandler
 	public void onBlockRedstoneEvent(BlockRedstoneEvent event){
 		if (portalBlocks.containsKey(event.getBlock().getLocation())) event.setNewCurrent(event.getOldCurrent());
+	}
+
+	/** self contained water portal blocks */
+	@EventHandler
+	public void onBlockFromToEvent(BlockFromToEvent event){
+		if (portalBlocks.containsKey(event.getBlock().getLocation())) event.setCancelled(true);
 	}
 
 	// BLOCK PLACING = POSSIBLE PORTAL ACTIVATION
