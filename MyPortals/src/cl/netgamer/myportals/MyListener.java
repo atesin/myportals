@@ -17,6 +17,7 @@ import org.bukkit.event.block.BlockBurnEvent;
 import org.bukkit.event.block.BlockCanBuildEvent;
 import org.bukkit.event.block.BlockPhysicsEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.block.BlockRedstoneEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.player.PlayerBucketFillEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -66,6 +67,12 @@ public final class MyListener implements Listener{
 		if (event.getBlock().getTypeId() == 124 && !redBlocks.contains(event.getChangedTypeId())) event.setCancelled(true);
 	}
 	
+	/** it seems when place fire on redlamp it generates a pulse and lamp powers off */
+	@EventHandler
+	public void onBlockRedstoneEvent(BlockRedstoneEvent event){
+		if (portalBlocks.containsKey(event.getBlock().getLocation())) event.setNewCurrent(event.getOldCurrent());
+	}
+
 	// BLOCK PLACING = POSSIBLE PORTAL ACTIVATION
 	
 	// on player placing a possible portal warp
