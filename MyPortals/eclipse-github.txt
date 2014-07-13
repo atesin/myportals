@@ -19,3 +19,43 @@ FETCH
 
 PUSH
 
+--------------------------------
+
+fetch to local repo
+
+project r click
+team
+add to index
+
+
+add git repos view
+
+menu window - open views - (other) - git - git repos
+
+
+fetch from github to remote
+
+in git repos view...
+open remotes - origin - fetch (rgeen left arrow) r click - (configure - paste uri - add map) - fetch
+
+
+copy github repo uri
+
+in github repo, there is a small link bottom right , select ssh and copy url
+
+
+commit workspace to local repo
+
+project - r click - team - add to index
+project - r click - team - commit
+enter a message - select files - commit
+
+
+merge local repo with remote repo
+
+in git repos view
+my project - branches - local - my repo - r click - push
+paste repo uri - next - select branch - push
+
+
+
