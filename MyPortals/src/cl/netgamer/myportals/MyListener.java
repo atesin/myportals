@@ -100,10 +100,7 @@ public final class MyListener implements Listener{
 		// possible portal, get location we will use a lot
 		Location loc = event.getBlock().getLocation().clone().add(0, -1, 0);
 		int facing = plugin.shape.getFacing(loc);
-		//int facing = Shape.compare(event.getBlock().getLocation());
-		if (facing < 0){
-			return;
-		}
+		if (facing < 0) return;
 		
 		// looks like a portal, try to create
 		if (!plugin.create(event.getPlayer(), loc, facing)) return;
