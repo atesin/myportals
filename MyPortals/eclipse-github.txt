@@ -48,12 +48,12 @@ PUSH TO GITHUB
 
 commit workspace to local repo
 
-project - r click - team - add to index
+//project - r click - team - add to index
 project - r click - team - commit
 enter a message - select files - commit (and push?)
 
 
-merge local repo with remote repo
+merge local repo with remote repo (first time ask password)
 
 in git repos view
 my project - branches - local - my repo - r click - push
