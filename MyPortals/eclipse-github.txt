@@ -50,7 +50,7 @@ commit workspace to local repo
 
 project - r click - team - add to index
 project - r click - team - commit
-enter a message - select files - commit
+enter a message - select files - commit (and push?)
 
 
 merge local repo with remote repo
