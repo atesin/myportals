@@ -1,0 +1,21 @@
+
+ADD AN ECLIPSE INSTALLATION TO WORK WITH GITHUB
+
+- create a github account
+- in eclipse go to > window > preferences > general > network connections > ssh2
+- then go to > key magement > generate rsa key
+- put a password in "passphrase" and "confirm passphrase"
+- click "save private key" and give the default name/location
+- select all text in "you can paste this public key..." field, copy and click "OK"
+- back on your github profile, go to "ssh keys", click "add ssh key"
+- in the "title" field enter some name to identify your computer
+- in the "key" field paste the text you copied from eclipse ssh2 config and press "add key"
+
+
+
+
+FETCH
+
+
+PUSH
+

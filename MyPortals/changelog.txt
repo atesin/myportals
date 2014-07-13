@@ -1,6 +1,9 @@
 
 version history:
 
+v12
+- fix portal shape/facing detection
+
 v11
 - rebuild portals support
 - self contained water
@@ -51,7 +54,7 @@ todo:
 - custom alias
 - dynmap support
 - permissions
-- portal particles
+- portal particles effect
 - etc
 - suggest your own at bukkit dev page
 

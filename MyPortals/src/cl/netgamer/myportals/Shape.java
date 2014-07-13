@@ -1,6 +1,7 @@
 package cl.netgamer.myportals;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -148,19 +149,18 @@ public class Shape {
 		faces.add(loc.clone().add(0, 0, 1));
 		
 		// facing locations loop
-		for (int facePos = 0;facePos < ref.size();++facePos){
+		for (int facePos = 0;facePos < 4;++facePos){
 			
 			// rotate reference locations (clockwise), restoring size to avoid infinite grow
-			faces.add(0, faces.get(3));
-			faces.remove(4);
+			Collections.rotate(faces, 1);
 			
 			// to match rotation with passed facing value
 			if (facing >= 0 && facing != facePos) continue;
 			
-			if (ref.containsKey("front") && !loopColumn(faces.get(0), ref.get("front"), loc, inter)) return -1;
-			if (ref.containsKey("back") && !loopColumn(faces.get(2), ref.get("back"), loc, inter)) return -1;
-			if (ref.containsKey("sides") && !loopColumn(faces.get(1), ref.get("sides"), loc, inter)) return -1;
-			if (ref.containsKey("sides") && !loopColumn(faces.get(3), ref.get("sides"), loc, inter)) return -1;
+			if (ref.containsKey("front") && !loopColumn(faces.get(0), ref.get("front"), loc, inter)) continue;
+			if (ref.containsKey("back") && !loopColumn(faces.get(2), ref.get("back"), loc, inter)) continue;
+			if (ref.containsKey("sides") && !loopColumn(faces.get(1), ref.get("sides"), loc, inter)) continue;
+			if (ref.containsKey("sides") && !loopColumn(faces.get(3), ref.get("sides"), loc, inter)) continue;
 			
 			// it passed all edges
 			return facePos;
