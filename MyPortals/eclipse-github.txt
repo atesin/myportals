@@ -44,6 +44,8 @@ copy github repo uri
 in github repo, there is a small link bottom right , select ssh and copy url
 
 
+PUSH TO GITHUB
+
 commit workspace to local repo
 
 project - r click - team - add to index
