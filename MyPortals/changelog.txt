@@ -1,6 +1,9 @@
 
 version history:
 
+v13
+- fix teleport and xp points cost bug
+
 v12
 - fix portal shape/facing detection
 

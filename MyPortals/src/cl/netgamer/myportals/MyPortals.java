@@ -16,9 +16,16 @@ import cl.netgamer.tabtext.TabText;
 
 public final class MyPortals extends JavaPlugin{
 	
-	// PROPERTIES
+	// FOR DEBUGGING
 	
 	private static Logger logger;
+	// get logger on enable
+	public static void log(String msg){
+		logger.info(msg);
+	}
+		
+	// PROPERTIES
+	
 	private static Map<String, Object> allowedWorlds;
 	boolean interWorlds;
 	protected int xpCost;
@@ -27,12 +34,13 @@ public final class MyPortals extends JavaPlugin{
 	protected Shape shape;
 	private String[] tags;
 	
+	
 	// ENABLE PLUGIN
 	
 	public void onEnable(){
-		logger = getLogger();
 		this.saveDefaultConfig();
 		if (getConfig().getBoolean("disabled")) return;
+		logger = getLogger();
 		
 		allowedWorlds = getConfig().getConfigurationSection("allowedWorlds").getValues(false);
 		interWorlds = getConfig().getBoolean("interWorlds");
@@ -180,11 +188,6 @@ public final class MyPortals extends JavaPlugin{
 	}
 	
 	// UTILITY METHODS
-	
-	// console log, general use
-	public static void log(String msg){
-		logger.info(msg);
-	}
 	
 	// external use
 	protected Portal getPortalByLocation(Location loc){

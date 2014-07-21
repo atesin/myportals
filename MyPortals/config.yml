@@ -95,7 +95,9 @@ shapeActivate:
 #   center: [null, 9, 9]
 #
 # SOME USEFUL BLOCKS:
-#
+# 
+# 0: air (useful for spacing and portal deletion)
+# 3: dirt (useful for portal deletion)
 # 9: fixed water (DON'T USE ID 8, SEE NOTES BELOW!)
 # 89: glowstone
 # 86: pumpkin

@@ -3,12 +3,11 @@ package cl.netgamer.stepblock;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.player.PlayerMoveEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
+import cl.netgamer.myportals.MyPortals;
 
 /**
  * class to check when a player step another block
@@ -61,8 +60,9 @@ public class StepBlock {
 		// stepping over the same block?
 		if (from.equals(to)) return;
 		
-		// stepped into another block, store it and 
+		// stepped into another block, store it and construct step event
 		steps.put(name, to);
-		new StepBlockEvent(player, to, from);
+		StepBlockEvent e = new StepBlockEvent(player, to, from);
+		Bukkit.getServer().getPluginManager().callEvent(e);
 	}
 }

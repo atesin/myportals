@@ -45,6 +45,9 @@ public class WarpTask extends BukkitRunnable{
 		if (!portal.warp(player)) return;
 		player.setTotalExperience(0);
 		player.setLevel(0);
+		player.setExp(0);
 		player.giveExp(xp - parent.plugin.xpCost);
 	}
+	
+	
 }

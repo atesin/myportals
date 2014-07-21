@@ -59,5 +59,9 @@ in git repos view
 my project - branches - local - my repo - r click - push
 paste repo uri - next - select branch - push
 
+----------------------
 
+IMPORT FROM GITHUB
+
+myProject > rclick > import > git > clone url > paste github ssh url project
 
