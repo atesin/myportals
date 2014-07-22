@@ -64,4 +64,5 @@ paste repo uri - next - select branch - push
 IMPORT FROM GITHUB
 
 myProject > rclick > import > git > clone url > paste github ssh url project
+if not empty dir, delete repo before
 
