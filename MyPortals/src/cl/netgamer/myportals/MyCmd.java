@@ -50,17 +50,15 @@ public class MyCmd implements CommandExecutor{
 			// java 6 switch compliance
 			//int subCmd = Arrays.asList("name", "dest", "public", "locked", "hidden", "private", "give", "2", "3", "4", "info", "list").indexOf(args[0].toLowerCase());
 			String subCmd = args[0].toLowerCase();
-			// collapse, rebuild
-			
+
 			
 			// validate sender
-			if (!subCmd.equals("list") && !subCmd.equals("rebuild") && !(sender instanceof Player)){
+			if (!subCmd.equals("list") && !subCmd.equals("rebuild") && !subCmd.equals("info") && !(sender instanceof Player)){
 				sender.sendMessage("portal "+args[0]+": "+msg("bePlayer"));
 				return true;
 			}
 			
 			// parameters count
-			//switch (subCmd){
 			switch (subCmd){
 			
 			// no subparamters: public, lock, hide, private, 2, 3, 4, info
@@ -196,23 +194,45 @@ public class MyCmd implements CommandExecutor{
 				sender.sendMessage("portal rebuild: "+msg("rebuilded"));
 				return true;
 			}
+
 			
+			// info with specified portal
+			if (subCmd.equalsIgnoreCase("info") && !(sender instanceof Player)){
+				if (args.length != 2){
+					sender.sendMessage("portal info: "+msg("argsNotMatch"));
+					return true;
+				}
+				String info = plugin.info(args[1], sender.getName());
+				if (info == null) sender.sendMessage("portal info: "+msg("hidden"));
+				else if (info.length() < 1) sender.sendMessage("portal info: "+msg("nameNotFound"));
+				else sender.sendMessage("portal info:\n"+info);
+				return true;
+			}
+			
+			// LOOKING PORTAL COMMANDS
 			
 			// get player
+			if (!(sender instanceof Player)){
+				sender.sendMessage("portal "+args[0]+": "+msg("bePlayer"));
+				return true;
+			}
 			Player player = (Player) sender;
-			// get target location
+			
+			// get looked location
 			Location viewLoc = getTarget(player);
 			if (viewLoc == null){
 				player.sendMessage("portal "+args[0]+": "+msg("tooFar"));
 				return true;
 			}
+			
+			// get looked portal
 			Portal portal = plugin.getPortalByLocation(viewLoc);
 			if (portal == null){
 				player.sendMessage("portal "+args[0]+": "+msg("lookNotPortal"));
 				return true;
 			}
 			
-			// execute looking portal commands
+			// process given subcommand
 			switch (subCmd){
 			
 			case "info":

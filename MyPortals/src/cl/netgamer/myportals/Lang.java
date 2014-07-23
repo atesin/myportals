@@ -25,7 +25,7 @@ public class Lang {
 		msg.put("help4", "§E");
 		msg.put("tags", "");
 		msg.put("bePlayer", "§D");
-		msg.put("argsNotmatch", "§D");
+		msg.put("argsNotMatch", "§D");
 		msg.put("unknownCmd", "§D");
 		msg.put("listHead", "§E");
 		msg.put("tooFar", "§D");

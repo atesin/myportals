@@ -87,6 +87,17 @@ public final class MyPortals extends JavaPlugin{
 		return data;
 	}
 	
+	protected String info(String name, String sender){
+		// if not fullname add owner
+		if (name.indexOf(":") < 0) name = sender+":"+name;
+		
+		// get portal location, empty if not found
+		Location loc = getLocationByFullName(name);
+		if (loc == null) return "";
+		
+		return info(getPortalByLocation(loc), sender);
+	}
+	
 	protected String info(Portal portal, String sender){
 		// hidden?
 		if (!portal.getOwner().equalsIgnoreCase(sender) && portal.getPrivacy() > 1 && !sender.equals("CONSOLE")) return null;
@@ -127,8 +138,11 @@ public final class MyPortals extends JavaPlugin{
 		// check name syntax
 		if (!name.matches("[a-zA-Z0-9._-]{1,12}")) return "invalidName";
 		
+		// if not fullname add owner
+		if (name.indexOf(":") < 0) name = player.getName()+":"+name;
+		
 		// already used name?
-		if (getLocationByFullName(portal.getOwner()+":"+name) != null) return "busyName";
+		if (getLocationByFullName(name) != null) return "busyName";
 		
 		// set name
 		portal.setName(name, player.getLocation().getYaw());
@@ -137,11 +151,11 @@ public final class MyPortals extends JavaPlugin{
 	}
 	
 	protected String dest(Portal portal, String destName, Player player){
-		// if not fullname add owner
-		if (destName.indexOf(":") < 0) destName = player.getName()+":"+destName;
-		
 		// can set destination?
 		if (!portal.getOwner().equalsIgnoreCase(player.getName()) && portal.getPrivacy() > 0) return "locked";
+		
+		// if not fullname add owner
+		if (destName.indexOf(":") < 0) destName = player.getName()+":"+destName;
 		
 		// get dest portal location
 		Location destLoc = getLocationByFullName(destName);
@@ -196,12 +210,13 @@ public final class MyPortals extends JavaPlugin{
 	}
 	
 	/**
-	 * @param fullName portal search criteria
+	 * @param name portal search criteria
+	 * @param owner possible player who owns the portal
 	 * @return 
 	 */
-	private Location getLocationByFullName(String fullName){
-		if (fullName == null) return null;
-		for (Portal p: portals.values()) if (p.getFullName().equalsIgnoreCase(fullName)) return p.getLocation();
+	private Location getLocationByFullName(String name){
+		if (name == null) return null;
+		for (Portal p: portals.values()) if (p.getFullName().equalsIgnoreCase(name)) return p.getLocation();
 		return null;
 	}
 	

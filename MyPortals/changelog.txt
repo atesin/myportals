@@ -1,6 +1,9 @@
 
 version history:
 
+v14
+- 
+
 v13
 - fix teleport and xp points cost bug
 
@@ -56,7 +59,7 @@ todo:
 - info any portal
 - custom alias
 - dynmap support
-- permissions
+- permissions (rebuild, listHidden, usePrivate, etc)
 - portal particles effect
 - etc
 - suggest your own at bukkit dev page

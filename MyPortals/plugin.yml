@@ -1,6 +1,6 @@
 name: MyPortals
 main: cl.netgamer.myportals.MyPortals
-version: 13
+version: 14
 
 commands:
    portal:
