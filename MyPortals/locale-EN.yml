@@ -38,7 +38,7 @@ help4: |
 # do not use more than 8 characters for public, locked, hidden and private
 tags: ;locked;hidden;private;Location;Owner;Name;Privacy;Destination
 bePlayer: you must be an online player to use this subcommand
-argsNotMatch: the number of arguments don't matches with expected
+argsNotMatch: the number of arguments doesn't match with expected
 unknownCmd: unknown subcommand, try just /portal
 listHead: Owner %1$s, Page %2$s of %3$s
 tooFar: the block you are looking is too far to be selected

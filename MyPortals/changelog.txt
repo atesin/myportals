@@ -56,7 +56,6 @@ v1
 
 todo:
 
-- info any portal
 - custom alias
 - dynmap support
 - permissions (rebuild, listHidden, usePrivate, etc)
