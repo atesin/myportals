@@ -13,7 +13,7 @@ help2: |
   command format: '/portal subcommand (arg1) (arg2)...'
   most subcommands must be typed while looking a portal base
     list (args...) : list portals, type '/portal 3' for help
-    info : displays information about the current portal
+    info : displays information about the looking or specified portal
     name N : gives or changes the current portal name to N
     dest D : sets or changes the current portal destination to D
     give P : gives your public portal to online player P
