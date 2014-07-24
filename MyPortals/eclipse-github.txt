@@ -59,6 +59,17 @@ in git repos view
 my project - branches - local - my repo - r click - push
 paste repo uri - next - select branch - push
 
+------
+
+merge with local repo (from github -> sync local)
+git - remotes - miOrigin - rclick - fetch
+git - branches - remote - myOrigin - rclick - merge - with remote/myOrigin
+(?)pkg explorer - myProject - rclick - team - remote - fetch
+
+commit to repos (from workspace -> sync github)
+(?)pkg explorer - myProject - rclick - team - commit - commit+push
+
+
 ----------------------
 
 IMPORT FROM GITHUB
