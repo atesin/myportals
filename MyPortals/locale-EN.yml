@@ -48,7 +48,7 @@ locked: you cannot modify a portal that is locked and not yours
 invalidName: invalid name, only a-z, A-Z, 0-9 and ._- , 2 to 12
 busyName: the owner already has a portal with same name
 namedOk: portal successfully named
-nameNotFound: portal name not found, try with 'owner:name'
+nameNotFound: portal name not found, try with 'owner:portalName'
 diffrentWorlds: you can not link diffrent world portals for now
 unnamed: give the portal a name first
 destOk: destination successfully changed
