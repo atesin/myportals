@@ -67,7 +67,7 @@ git - branches - remote - myOrigin - rclick - merge - with remote/myOrigin
 (?)pkg explorer - myProject - rclick - team - remote - fetch
 
 commit to repos (from workspace -> sync github)
-(?)pkg explorer - myProject - rclick - team - commit - commit+push
+pkg explorer - myProject - rclick - team - commit - commit+push
 
 
 ----------------------
