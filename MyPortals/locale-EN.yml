@@ -1,6 +1,10 @@
 # localization file, if displays weird characters save it as ansi
 # you can configure language at config.yml; then copy, rename and edit this file
-# please submit your own at bukkit dev page
+# please submit your own translation at bukkit dev page
+
+# server console help: all command 
+# - portal rebuild = read the loaded config and rebuild all portal structures (use with caution)
+# -  
 
 help1: |
   When distances becomes large, minecraft can turn boring.

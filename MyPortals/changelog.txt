@@ -57,6 +57,7 @@ v1
 todo:
 
 - custom alias
+- destination tooltips
 - dynmap support
 - permissions (rebuild, listHidden, usePrivate, etc)
 - portal particles effect
