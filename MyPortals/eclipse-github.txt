@@ -63,7 +63,7 @@ paste repo uri - next - select branch - push
 
 merge with local repo (from github -> sync local)
 git - remotes - miOrigin - green arrow - rclick - fetch
-git - branches - remote - myOrigin - rclick - merge - with remote/myOrigin
+git - branches - local - myOrigin - rclick - merge - with remote/myOrigin
 (not needed?) pkg explorer - myProject - rclick - team - remote - fetch
 
 commit to repos (from workspace -> sync github)
