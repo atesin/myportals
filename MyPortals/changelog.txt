@@ -54,6 +54,12 @@ v1
 - initial release
 
 
+idea:
+
+- when activated portal belongs nobody, who first name becomes the owner
+- when activated display a message remembering to name it
+
+
 todo:
 
 - custom alias

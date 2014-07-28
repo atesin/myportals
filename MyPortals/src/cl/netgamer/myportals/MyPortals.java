@@ -133,10 +133,10 @@ public final class MyPortals extends JavaPlugin{
 	
 	protected String name(Portal portal, String name, Player player){
 		// can change name? 
-		if (!player.getName().equalsIgnoreCase(portal.getName()) && portal.getPrivacy() > 0) return "locked";
+		if (!player.getName().equalsIgnoreCase(portal.getOwner()) && portal.getPrivacy() > 0) return "locked";
 		
 		// check name syntax
-		if (!name.matches("[a-zA-Z0-9._-]{1,12}")) return "invalidName";
+		if (!name.matches("[a-zA-Z0-9]{1,12}")) return "invalidName";
 		
 		// if not fullname add owner
 		if (name.indexOf(":") < 0) name = player.getName()+":"+name;

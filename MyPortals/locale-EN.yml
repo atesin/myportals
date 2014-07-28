@@ -6,6 +6,11 @@
 # - portal rebuild = read the loaded config and rebuild all portal structures (use with caution)
 # -  
 
+about: |
+  with MyPortals you can teleport anywhere by building custom portals
+  they work like nether portals, ask your admin the portal shape
+  once activated you must set a name
+  
 help1: |
   When distances becomes large, minecraft can turn boring.
   MyPortals is a personal teleporting plugin, which you can
@@ -41,6 +46,7 @@ help4: |
     private: same as above, except be teleported to
 # do not use more than 8 characters for public, locked, hidden and private
 tags: ;locked;hidden;private;Location;Owner;Name;Privacy;Destination
+activatedOk: portal created, set a name with '/portal name myPortal'
 bePlayer: you must be an online player to use this subcommand
 argsNotMatch: the number of arguments doesn't match with expected
 unknownCmd: unknown subcommand, try just /portal
@@ -48,13 +54,13 @@ listHead: Owner %1$s, Page %2$s of %3$s
 tooFar: the block you are looking is too far to be selected
 lookNotPortal: the block you are looking is not a portal base
 hidden: hidden portal, can not display info
-locked: you cannot modify a portal that is locked and not yours
-invalidName: invalid name, only a-z, A-Z, 0-9 and ._- , 2 to 12
+locked: can not modify, you're not the owner and is locked
+invalidName: invalid name, only 1 to 12 letters and numbers
 busyName: the owner already has a portal with same name
 namedOk: portal successfully named
 nameNotFound: portal name not found, try with 'owner:portalName'
 diffrentWorlds: you can not link diffrent world portals for now
-unnamed: give the portal a name first
+noName: give the portal a name first
 destOk: destination successfully changed
 privacyOk: privacy successfully changed
 notYours: you can not give a portal that is not yours

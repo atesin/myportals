@@ -14,11 +14,11 @@ public class Portal {
 	/** where the portal base is located */
 	private Location location;
 	/** who this portal belongs */
-	private String owner;
+	private String owner = "";
 	/** the name of this portal */
 	private String name = "";
 	/** to do fast searches, "owner:name" concatenated */
-	private String fullName;
+	private String fullName =":";
 	/** where player points when bring teleported (yaw) */
 	private float direction;
 	/** where the portal "door" points, compatible with F3 screen */
@@ -37,6 +37,11 @@ public class Portal {
 		this.fullName = owner+":"+name;
 		this.facing = facing;
 		this.direction = owner.getLocation().getYaw() + 180f;
+	}
+	
+	/** for event created portals */
+	Portal(Location location){
+		this.location = location;
 	}
 	
 	/** for importing */
@@ -87,6 +92,16 @@ public class Portal {
 		this.direction = yaw + 180;
 	}
 	
+	String setName(String portalName, Player player){
+		// can change name? 
+		if (!player.getName().equalsIgnoreCase(owner) && privacy > 0) return "locked";
+		name = portalName;
+		if (owner.length() < 1) owner = player.getName();
+		fullName = owner+":"+name;
+		direction = player.getLocation().getYaw() + 180;
+		return "namedOk";
+	}
+	
 	boolean setOwner(String owner){
 		if (name.length() == 0) return false;
 		this.owner = owner;
@@ -101,11 +116,39 @@ public class Portal {
 		return true;
 	}
 	
+	// check if portal exists at destination first
+	String setDestination(Location destination, Player player){
+		if (name.length() < 1) return "noName";
+		if (!owner.equals(player.getName()) && privacy > 0) return "locked";
+		this.destination = destination;
+		direction = player.getLocation().getYaw() + 180;
+		return "destOk";
+	}
+	
 	boolean setPrivacy(int privacy, float yaw){
 		if (name.length() == 0) return false;
 		this.privacy = privacy;
 		this.direction = yaw + 180;
 		return true;
+	}
+	
+	String setPrivacy(int privacy, Player player){
+		if (name.length() < 1) return "noName";
+		if (!owner.equals(player.getName()) && privacy > 0) return "locked";
+		this.privacy = privacy;
+		direction = player.getLocation().getYaw() + 180;
+		return "privacyOk";
+	}
+	
+	// REGULAR METHODS
+	
+	// must check if recipient has a portal with same name before
+	String give(Player currentOwner, Player recipient){
+		if (name.length() < 1) return "noName";
+		if (!owner.equals(currentOwner.getName())) return "notYours";
+		owner = recipient.getName();
+		fullName = owner+":"+name;
+		return "giveOk";
 	}
 	
 	boolean warp(Player player){

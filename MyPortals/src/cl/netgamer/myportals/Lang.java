@@ -18,12 +18,12 @@ public class Lang {
 
 		// §B: cyan: success - §E: yellow: info - §D: magenta: error
 		// paragraph sign "§": win = alt+21 (keypad), linux = alt+167 (keypad)
-		msg.put("welcome", "§B");
 		msg.put("help1", "§E");
 		msg.put("help2", "§E");
 		msg.put("help3", "§E");
 		msg.put("help4", "§E");
 		msg.put("tags", "");
+		msg.put("activatedOk", "§B");
 		msg.put("bePlayer", "§D");
 		msg.put("argsNotMatch", "§D");
 		msg.put("unknownCmd", "§D");
@@ -37,7 +37,7 @@ public class Lang {
 		msg.put("namedOk", "§B");
 		msg.put("nameNotFound", "§D");
 		msg.put("diffrentWorlds", "§D");
-		msg.put("unnamed", "§D");
+		msg.put("noName", "§D");
 		msg.put("destOk", "§B");
 		msg.put("privacyOk", "§B");
 		msg.put("notYours", "§D");
