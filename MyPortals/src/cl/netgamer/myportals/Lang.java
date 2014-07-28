@@ -48,6 +48,18 @@ public class Lang {
 		msg.put("rebuilding", "§E");
 		msg.put("rebuilded", "§B");
 		
+		msg.put("about"        , "§E");
+		msg.put("commands"     , "§E");
+		msg.put("helpname"     , "§E");
+		msg.put("helpdest"     , "§E");
+		msg.put("helpprivacy"  , "§E");
+		msg.put("helpgive"     , "§E");
+		msg.put("helplist"     , "§E");
+		msg.put("helpinfo"     , "§E");
+		msg.put("helprebuild"  , "§E");
+
+		
+		
 		for (String key: msg.keySet()) msg.put(key, msg.get(key)+conf.getConfig().getString(key));
 	}
 }

@@ -2,15 +2,66 @@
 # you can configure language at config.yml; then copy, rename and edit this file
 # please submit your own translation at bukkit dev page
 
-# server console help: all command 
-# - portal rebuild = read the loaded config and rebuild all portal structures (use with caution)
-# -  
+# server console help: most commands works except which need visual portal selection 
+#  - portal list = show all portals by default, even hidden, in one big page
+#  - portal info playerName:hisPortal = only works by specifying a full portal name 
+#  - portal rebuild [confirm] = read the loaded config and rebuild all portal shapes
 
+
+# note the blank line + blank spaces to separate paragraphs
 about: |
-  with MyPortals you can teleport anywhere by building custom portals
-  they work like nether portals, ask your admin the portal shape
-  once activated you must set a name
+  Teleport anywhere by building custom portals.
+  Ask your server the custom portal shape and activation used.
+   
+  Select a portal by looking its base with your crosshair.
+  Then you must set a name, and optionally a destination.
+  Enter the portal to teleport to destination, exit to cancel.
+   
+  Can also set privacy, give to someone, or list portals.
+  If portal breaks will deactivate, like nether portals.
+  Type "/portal help" to list available portal commands.
+commands: |
+  Type "/portal" to get a brief tutorial.
+   
+  Available commands, for help type "/portal help myCommand":
+  - Essential = name, dest
+  - Privacy = public, lock, hide, private
+  - Ownership = give
+  - Informational = list, info
+helpname: |
+  "/portal name MyPortal" = gives the portal a (new) name
+  - When create a portal give it a name immediately.
+  - Most other commands requires the portal have a name.
+  - Naming a fresh activated portal gives you the ownership.
+  - You can't change the name of somebody's locked portal.
+helpdest: |
+  "/portal dest myDestination" = sets a (new) destination portal
+   - Source and destination portals must have a name.
+   - Link another player portal with "somePlayer:hisPortal"
+   - You can't change destination of somebody's locked portal.
+helpprivacy: |
+  "/portal public|lock|hide|private" = Sets privacy level to the portal
+   
+  Portal must have a name.
+  You can do anything with your portals, so privacy applies for others
+  - public = can do anything except use the 'give' command.
+  - lock = can use but not modify portals trought commands.
+  - hide = in addition portal won't be listed with 'list' command.
+  - private = same as above plus portal won't bring you teleported,
+      useful for placing on hidden or private places.
+helplist: |
+  /portal list [playerName|*] [pageNumber]
+    List active portals on the server, by default it shows the 1st page of your own portals,
+    If 'playerName' is ommited is replaced by your name (or '*' on server console)
+    If 'pageNumber' is ommited is replaced by '1' (or '0' on server console) 
+    It won't list hidden or private portals you don't own.
+    - '/portal list' : list first page of your portals (default)
+    - '/portal list otherPlayer 2' list page 2 of otherPlayer's portals 
+    Sets a destination to selected portal
+
   
+  
+     
 help1: |
   When distances becomes large, minecraft can turn boring.
   MyPortals is a personal teleporting plugin, which you can
@@ -52,7 +103,7 @@ argsNotMatch: the number of arguments doesn't match with expected
 unknownCmd: unknown subcommand, try just /portal
 listHead: Owner %1$s, Page %2$s of %3$s
 tooFar: the block you are looking is too far to be selected
-lookNotPortal: the block you are looking is not a portal base
+lookNotPortal: the target block is not an active portal base
 hidden: hidden portal, can not display info
 locked: can not modify, you're not the owner and is locked
 invalidName: invalid name, only 1 to 12 letters and numbers

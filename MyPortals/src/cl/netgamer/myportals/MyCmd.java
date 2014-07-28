@@ -51,6 +51,20 @@ public class MyCmd implements CommandExecutor{
 			//int subCmd = Arrays.asList("name", "dest", "public", "locked", "hidden", "private", "give", "2", "3", "4", "info", "list").indexOf(args[0].toLowerCase());
 			String subCmd = args[0].toLowerCase();
 
+			// new help test
+			switch (subCmd){
+			case "about":
+			case "commands":
+			case "helpname":
+			case "helpdest":
+			case "helpprivacy":
+			case "helpgive":
+			case "helplist":
+			case "helpinfo":
+			case "helprebuild":
+				sender.sendMessage(msg(subCmd));
+				return true;
+			}
 			
 			// validate sender
 			if (!subCmd.equals("list") && !subCmd.equals("rebuild") && !subCmd.equals("info") && !(sender instanceof Player)){
