@@ -20,7 +20,10 @@ import org.bukkit.event.block.BlockPhysicsEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.block.BlockRedstoneEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
+import org.bukkit.event.player.PlayerBucketEvent;
 import org.bukkit.event.player.PlayerBucketFillEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.potion.PotionEffect;
@@ -33,7 +36,7 @@ public final class MyListener implements Listener{
 	
 	// PROPERTIES
 	
-	private List<Integer> redBlocks = Arrays.asList(new Integer[]{27, 28, 36, 55, 69, 70, 72, 75, 76, 77, 93, 94, 94, 131, 132, 143, 147, 148, 149, 150, 152});;
+	//private List<Integer> redBlocks = Arrays.asList(new Integer[]{27, 28, 36, 55, 69, 70, 72, 75, 76, 77, 93, 94, 94, 131, 132, 143, 147, 148, 149, 150, 152});;
 	protected MyPortals plugin;
 	private int baseId;
 	private int chargeId;
@@ -56,28 +59,49 @@ public final class MyListener implements Listener{
 	
 	// REGULAR METHODS
 	
+	/** displays a welcome/help message when player joins server */
+	@EventHandler
+	public void onPlayerJoin(PlayerJoinEvent event){
+		event.getPlayer().sendMessage(plugin.cmd.msg("welcome"));
+	}
+	
+	/** cleans blocks step array when player leaves to prevent growing */
 	@EventHandler
 	public void onPlayerQuit(PlayerQuitEvent event){
 		step.clean(event.getPlayer());
 	}
 	
-	/** stay lamps turned on if not actioned by redstone, requires static world while placing */
+	/** stay lamps turned on if (not actioned by redstone) belongs a portal, requires static world while placing */
 	@EventHandler
 	public void onBlockPhysics(BlockPhysicsEvent event){
-		if (event.getBlock().getTypeId() == 124 && !redBlocks.contains(event.getChangedTypeId())) event.setCancelled(true);
+		//if (event.getBlock().getTypeId() == 124 && !redBlocks.contains(event.getChangedTypeId())) event.setCancelled(true);
+		if (portalBlocks.containsKey(event.getBlock().getLocation())) event.setCancelled(true);
 	}
 	
 	/** it seems when place fire on redlamp it generates a pulse and lamp powers off */
 	@EventHandler
-	public void onBlockRedstoneEvent(BlockRedstoneEvent event){
+	public void onBlockRedstone(BlockRedstoneEvent event){
 		if (portalBlocks.containsKey(event.getBlock().getLocation())) event.setNewCurrent(event.getOldCurrent());
 	}
 
 	/** self contained water portal blocks */
 	@EventHandler
-	public void onBlockFromToEvent(BlockFromToEvent event){
+	public void onBlockFromTo(BlockFromToEvent event){
 		if (portalBlocks.containsKey(event.getBlock().getLocation())) event.setCancelled(true);
 	}
+	
+	// cancel try grab water portal with bucket
+	/* @EventHandler
+	public void onPlayerBucket(PlayerBucketEvent event){
+		if (portalBlocks.containsKey(event.getBlockClicked().getLocation())) event.setCancelled(true);
+	} */
+	
+	// cancel try grab water portal with bucket
+	/* @EventHandler
+	public void onPlayerInteract(PlayerInteractEvent event){
+		if (portalBlocks.containsKey(event.getClickedBlock().getLocation())) event.setCancelled(true);
+	} */	
+	
 
 	// BLOCK PLACING = POSSIBLE PORTAL ACTIVATION
 	
@@ -120,12 +144,6 @@ public final class MyListener implements Listener{
 		checkPortalDestroyed(event.getBlock());
 	}
 
-	// on grab water portal with bucket
-	@EventHandler
-	public void onPlayerBucketFill(PlayerBucketFillEvent event){
-		checkPortalDestroyed(event.getBlockClicked());
-	}
-	
 	// on explosion, it handles a list of destroyed blocks
 	@EventHandler
 	public void onEntityExplode(EntityExplodeEvent event){
@@ -142,13 +160,13 @@ public final class MyListener implements Listener{
 	}
 	
 	// on water block update (lava)?
-	/*@EventHandler
+	/* @EventHandler
 	public void blockPhysics(BlockPhysicsEvent event){
 		if ( (event.getChangedTypeId() != 8 || event.getChangedTypeId() != 9) &&
 			(event.getBlock().getTypeId() != 8 || event.getBlock().getTypeId() != 9) ){
 			checkPortalDestroyed(event.getBlock(), "blockPhysics");
 		}
-	}*/
+	} */
 	
 	// on water block update (solid)?
 	@EventHandler
@@ -157,6 +175,13 @@ public final class MyListener implements Listener{
 			checkPortalDestroyed(event.getBlock());
 		}
 	}
+	
+	// on grab water portal with bucket
+	@EventHandler
+	public void onPlayerBucketFill(PlayerBucketFillEvent event){
+		checkPortalDestroyed(event.getBlockClicked());
+	}
+
 	
 	// POSSIBLE PORTAL BLOCK DELETED
 	

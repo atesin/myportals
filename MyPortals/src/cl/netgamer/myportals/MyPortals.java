@@ -32,6 +32,7 @@ public final class MyPortals extends JavaPlugin{
 	private Map<Location, Portal> portals;
 	protected Data data;
 	protected Shape shape;
+	MyCmd cmd;
 	private String[] tags;
 	
 	
@@ -50,9 +51,10 @@ public final class MyPortals extends JavaPlugin{
 		data = new Data(this);
 		portals = data.loadPortals();
 		
+		cmd = new MyCmd(this, shape.getTransparents());
+		getCommand("portal").setExecutor(cmd);
+		tags = cmd.tags;
 		new MyListener(this, shape.getBaseId(), shape.getChargeId(), shape.getMaterials(), shape.getPortalsBlocks(portals));
-		getCommand("portal").setExecutor(new MyCmd(this, getConfig().getString("locale"), shape.getTransparents()));
-		tags = MyCmd.tags;
 	}
 	
 	// PORTAL INFORMATION
@@ -78,7 +80,7 @@ public final class MyPortals extends JavaPlugin{
 			data += p.getName()+"`";
 			
 			// add privacy status
-			data += MyCmd.tags[p.getPrivacy()]+"`";
+			data += tags[p.getPrivacy()]+"`";
 			
 			// add destination portal name
 			data += getPortalName(p.getDestination(), sender);
@@ -120,6 +122,7 @@ public final class MyPortals extends JavaPlugin{
 		data.savePortal(portal);
 		portals.put(baseLoc, portal);
 		shape.activate(portal);
+		owner.sendMessage(cmd.msg("activatedOk"));
 		return true;
 	}
 	
@@ -184,9 +187,10 @@ public final class MyPortals extends JavaPlugin{
 		// portal is yours?
 		if (!portal.getOwner().equalsIgnoreCase(owner)) return "notYours";
 		
-		// is recipient online?
+		// is recipient online?, correct name
 		Player newOwner = Bukkit.getPlayerExact(recipient);
 		if (newOwner == null) return "offlinePlayer";
+		recipient = newOwner.getName();
 		
 		// recipient has a portal with same name?
 		if (getLocationByFullName(newOwner.getName()+":"+portal.getName()) != null) return "busyName";
@@ -194,6 +198,7 @@ public final class MyPortals extends JavaPlugin{
 		// change owner
 		if (!portal.setOwner(recipient)) return "unnamed";
 		data.savePortal(portal);
+		newOwner.sendMessage(String.format(cmd.msg("recieveOk"), owner, portal.getName()));
 		return "giveOk";
 	}
 	

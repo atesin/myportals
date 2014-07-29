@@ -3,6 +3,7 @@ version history:
 
 v14
 - get info of any portal
+- improved help messages, DELETE YOUR LANG-EN.YML FILE TO REGENERATE
 
 v13
 - fix teleport and xp points cost bug

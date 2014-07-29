@@ -19,16 +19,16 @@ public class MyCmd implements CommandExecutor{
 	protected MyPortals plugin;
 	private Lang lang;
 	private HashSet<Byte> transparents;
-	static String[] tags;
+	String[] tags;
 	//private String[] privacy;
 	private List<String> privacyCmd = Arrays.asList("public", "lock", "hide", "private");
 
 	
 	// CONSTRUCTORS
 	
-	MyCmd(MyPortals plugin, String locale, HashSet<Byte> transparents){
+	MyCmd(MyPortals plugin, HashSet<Byte> transparents){
 		this.plugin = plugin;
-		lang = new Lang(plugin, locale);
+		lang = new Lang(plugin, plugin.getConfig().getString("locale"));
 		this.transparents = transparents;
 		msg("infoHead").split("`", -1);
 		tags = msg("tags").split(";", -1);
@@ -42,47 +42,33 @@ public class MyCmd implements CommandExecutor{
 		if(cmd.getName().equalsIgnoreCase("portal")){
 			
 			
+			// with no subparameter show tutorial
 			if (args.length == 0){
-				sender.sendMessage("MyPortals help (1/4) :\n"+msg("help1"));
+				//sender.sendMessage("MyPortals help (1/4) :\n"+msg("help1"));
+				sender.sendMessage("/portal\n"+msg("portal"));
 				return true;
 			}
 			
-			// java 6 switch compliance
-			//int subCmd = Arrays.asList("name", "dest", "public", "locked", "hidden", "private", "give", "2", "3", "4", "info", "list").indexOf(args[0].toLowerCase());
+			// get subcommand, will use a lot
 			String subCmd = args[0].toLowerCase();
 
-			// new help test
-			switch (subCmd){
-			case "about":
-			case "commands":
-			case "helpname":
-			case "helpdest":
-			case "helpprivacy":
-			case "helpgive":
-			case "helplist":
-			case "helpinfo":
-			case "helprebuild":
-				sender.sendMessage(msg(subCmd));
-				return true;
-			}
-			
 			// validate sender
 			if (!subCmd.equals("list") && !subCmd.equals("rebuild") && !subCmd.equals("info") && !(sender instanceof Player)){
 				sender.sendMessage("portal "+args[0]+": "+msg("bePlayer"));
 				return true;
 			}
 			
-			// parameters count
+			
+			// PARAMETER COUNT
+			
+			
 			switch (subCmd){
 			
-			// no subparamters: public, lock, hide, private, 2, 3, 4, info
+			// no subparamters: public, lock, hide, private, info
 			case "public":
 			case "lock":
 			case "hide":
 			case "private":
-			case "2":
-			case "3":
-			case "4":
 				if (args.length != 1){
 					sender.sendMessage("portal "+args[0]+": "+msg("argsNotMatch"));
 					return true;
@@ -99,7 +85,8 @@ public class MyCmd implements CommandExecutor{
 				}
 				break;
 				
-			// up to 1 subparameter: info, rebuild
+			// up to 1 subparameter: help, info, rebuild
+			case "help":
 			case "info":
 			case "rebuild":
 				if (args.length > 2){
@@ -123,18 +110,40 @@ public class MyCmd implements CommandExecutor{
 			}
 			
 			
-			// help pages
-			switch (subCmd){
+			// HELP PAGES
 			
-			// 2, 3, 4
-			case "2":
-			case "3":
-			case "4":
-				sender.sendMessage("MyPortals help ("+args[0]+"/4) :\n"+msg("help"+args[0]));
-				return true;
+			
+			if (subCmd.equalsIgnoreCase("help")){
+				if (args.length == 1){
+					sender.sendMessage("/portal help\n"+msg("help"));
+					return true;
+				}
+				switch (args[1].toLowerCase()){
+				case "name":
+					sender.sendMessage("/portal help name\n"+msg("helpname"));
+					return true;
+				case "dest":
+					sender.sendMessage("/portal help dest\n"+msg("helpdest"));
+					return true;
+				case "public":
+				case "lock":
+				case "hide":
+				case "private":
+					sender.sendMessage("/portal help "+args[1].toLowerCase()+"\n"+msg("helpprivacy"));
+					return true;
+				case "list":
+					sender.sendMessage("/portal help list\n"+msg("helplist"));
+					return true;
+				case "info":
+					sender.sendMessage("/portal help info\n"+msg("helpinfo"));
+					return true;
+				}
 			}
 			
-			// list: can be performed by anyone
+			
+			// LIST PORTALS: CAN BE PERFORMED BY ANYONE
+			
+			
 			if (subCmd.equals("list")){
 				// parameters
 				String owner; 
@@ -187,7 +196,9 @@ public class MyCmd implements CommandExecutor{
 			}
 			
 			
-			// rebuild
+			// REBUILD PORTALS (SERVER CONSOLE COMMAND)
+			
+			
 			if (subCmd.equals("rebuild")){
 				
 				// only by console
@@ -210,7 +221,9 @@ public class MyCmd implements CommandExecutor{
 			}
 
 			
-			// info with specified portal
+			// INFO FOR SERVER CONSOLE
+			
+			
 			if (subCmd.equalsIgnoreCase("info") && !(sender instanceof Player)){
 				if (args.length != 2){
 					sender.sendMessage("portal info: "+msg("argsNotMatch"));
@@ -223,7 +236,9 @@ public class MyCmd implements CommandExecutor{
 				return true;
 			}
 			
-			// LOOKING PORTAL COMMANDS
+			
+			// GET PLAYER AND HIS SELECTED PORTAL
+			
 			
 			// get player
 			if (!(sender instanceof Player)){
@@ -231,7 +246,8 @@ public class MyCmd implements CommandExecutor{
 				return true;
 			}
 			Player player = (Player) sender;
-			
+			//player.sendMessage("id data = "+player.getTargetBlock(null, 100).getTypeId()+" "+player.getTargetBlock(null, 100).getData());
+
 			// get looked location
 			Location viewLoc = getTarget(player);
 			if (viewLoc == null){
@@ -246,7 +262,10 @@ public class MyCmd implements CommandExecutor{
 				return true;
 			}
 			
-			// process given subcommand
+			
+			// LOOKING PORTAL COMMANDS
+			
+			
 			switch (subCmd){
 			
 			case "info":
@@ -282,7 +301,7 @@ public class MyCmd implements CommandExecutor{
 	
 	// UTILITY
 	
-	private String msg(String key){
+	String msg(String key){
 		if (key.length() < 20 && lang.msg.containsKey(key)) return lang.msg.get(key);
 		else return key;
 	}
