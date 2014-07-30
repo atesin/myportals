@@ -40,8 +40,9 @@ public class Portal {
 	}
 	
 	/** for event created portals */
-	Portal(Location location){
+	Portal(Location location, int facing){
 		this.location = location;
+		this.facing = facing;
 	}
 	
 	/** for importing */
@@ -85,18 +86,17 @@ public class Portal {
 	
 	// SETTER METHODS
 	
-	/** you cannot set any value if portal is unnamed yet */
-	void setName(String name, float yaw){
-		this.name = name;
-		this.fullName = owner+":"+name;
-		this.direction = yaw + 180;
-	}
-	
+	// name required for all other commands
+	// check repeated name before
 	String setName(String portalName, Player player){
 		// can change name? 
 		if (!player.getName().equalsIgnoreCase(owner) && privacy > 0) return "locked";
+		// check name syntax
+		if (!name.matches("[a-zA-Z0-9]{1,12}")) return "invalidName";
 		name = portalName;
+		// on first naming give ownership
 		if (owner.length() < 1) owner = player.getName();
+		// set portal
 		fullName = owner+":"+name;
 		direction = player.getLocation().getYaw() + 180;
 		return "namedOk";

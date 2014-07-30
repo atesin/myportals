@@ -118,7 +118,8 @@ public final class MyPortals extends JavaPlugin{
 	
 	protected boolean create(Player owner, Location baseLoc, int facing){
 		if (!allowedWorlds.containsKey(baseLoc.getWorld().getName())) return false;
-		Portal portal = new Portal(baseLoc, owner, facing);
+		//Portal portal = new Portal(baseLoc, owner, facing);
+		Portal portal = new Portal(baseLoc, facing);
 		data.savePortal(portal);
 		portals.put(baseLoc, portal);
 		shape.activate(portal);
@@ -135,22 +136,12 @@ public final class MyPortals extends JavaPlugin{
 	// PORTAL MODIFICATION
 	
 	protected String name(Portal portal, String name, Player player){
-		// can change name? 
-		if (!player.getName().equalsIgnoreCase(portal.getOwner()) && portal.getPrivacy() > 0) return "locked";
-		
-		// check name syntax
-		if (!name.matches("[a-zA-Z0-9]{1,12}")) return "invalidName";
-		
-		// if not fullname add owner
-		if (name.indexOf(":") < 0) name = player.getName()+":"+name;
-		
 		// already used name?
 		if (getLocationByFullName(name) != null) return "busyName";
-		
 		// set name
-		portal.setName(name, player.getLocation().getYaw());
-		data.savePortal(portal);
-		return "namedOk";
+		String status = portal.setName(name, player);
+		if (status.equals("namedOk")) data.savePortal(portal);
+		return status;
 	}
 	
 	protected String dest(Portal portal, String destName, Player player){

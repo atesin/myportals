@@ -10,38 +10,37 @@
 # - portal rebuild [confirm] = rebuild all portal shapes according to loaded config
 
 
+# help
 portal: |
-  Teleport anywhere by building custom portals.
+  Teleport anywhere by building nether like custom portals.
   Ask your server the current portal shape and activation.
    
   - Select a portal by looking its base with your crosshair.
-  - Then you must set a name, and optionally a destination.
+  - You must set a name, and optionally a destination.
   - Enter the portal to teleport to destination, exit to cancel.
    
   Can also set privacy, give to someone, or list portals.
   If breaks will deactivate, recreate in same place to keep links.
   To list available portal commands type "/portal help".
 help: |
-  To get a brief tutorial type "/portal".
   Available commands, for help type "/portal help myCommand":
    
   - Essential = name, dest
   - Privacy = public, lock, hide, private
   - Ownership = give
   - Informational = list, info
-helpname: |
+helpName: |
   "/portal name myPortal" = gives the portal a [new] name
+   
   - When create a portal give it a name immediately.
   - Most commands requires the portal have a name.
   - Naming a fresh activated portal gives you the ownership.
-  - You can't change the name of somebody's locked portal.
-helpdest: |
-  "/portal dest myDestination" = sets the [new] destination portal
+helpDest: |
+  "/portal dest myDestination" = sets the [new] destination.
    
   - Source and destination portals must have a name.
-  - Link another player portal with "somePlayer:hisPortal"
-  - You can't change destination of somebody's locked portal.
-helpprivacy: |
+  - Link another player portal with "somePlayer:hisPortal".
+helpPrivacy: |
   "/portal public|lock|hide|private" = Sets the portal privacy
    
   Portal must have a name, privacy levels are incremental.
@@ -50,43 +49,54 @@ helpprivacy: |
   - lock = can't modify with any command.
   - hide = won't be shown with "list" command.
   - private = won't bring you teleported, ok for private places.
-helplist: |
+helpGive: |
+  "/portal give somePlayer" = transfers the portal ownership.
+   
+  - Portal must be public.
+  - Reciever player must be online.
+helpList: |
   "/portal list [somePlayer|*] [pageNumber]" = list portals
    
-  - If "somePlayer" is ommited is replaced by your name (*=all).
-  - If "pageNumber" is ommited is replaced by "1".
-  - For easy reading, portals with no owner are yours.
+  - If "somePlayer" is omitted will assume yours (*=all).
+  - If "pageNumber" is omitted will assume page 1.
+  - Portals without owner are yours.
   - Won't list hidden and private portals you don't own.
-  - Output format is: owner, portalName, privacy, destination.
-helpinfo: |
-  "/portal info = show portal properties
+  - Output format is = owner, portalName, privacy, destination.
+helpInfo: |
+  "/portal info [portalName]" = show portal properties
    
-  - For easy reading, portals with no owner are yours.
-  - It shows privacy level even if portal is not your.
-  - Output is same as "list" command but with location.
-# do not use more than 8 characters for public, locked, hidden and private
+  - If "portalName" is ommited will assume targeted portal.
+  - Portals without owner are yours.
+  - Can specify somebody's portal with "somePlayer:hisPortal".
+  - It shows the location of non hidden portal.
+# information
+# more than 8 characters for public, locked, hidden and private tags will be trimmed
 tags: ;locked;hidden;private;Location;Owner;Name;Privacy;Destination
-activatedOk: portal created, set a name with '/portal name myPortal'
-bePlayer: you must be an online player to use this subcommand
-argsNotMatch: the number of arguments doesn't match with expected
-unknownCmd: unknown subcommand, try just /portal
+welcome: MyPortals enabled, type "/portal" to get help
 listHead: Owner %1$s, Page %2$s of %3$s
+rebuilding: rebuilding portals, please wait...
+# error
+bePlayer: you must be an online player to use this command
+argsNotMatch: the number of arguments doesn't match with expected
+unknownCmd: unknown command, type "/portal help" to list commands
 tooFar: the block you are looking is too far to be selected
 lookNotPortal: the target block is not an active portal base
-hidden: hidden portal, can not display info
-locked: can not modify, you're not the owner and is locked
-invalidName: invalid name, only 1 to 12 letters and numbers
-busyName: the owner already has a portal with same name
-namedOk: portal successfully named
-nameNotFound: portal name not found, try with 'owner:portalName'
+hidden: can't display somebody's hidden portal info
+locked: can't modify somebody's locked portal
+invalidName: invalid name, only 1 to 12 ascii letters and numbers
+busyName: the reciever has a same name portal
+nameNotFound: portal name not found, try with "owner:portalName"
 diffrentWorlds: you can not link diffrent world portals for now
 noName: give the portal a name first
-destOk: destination successfully changed
-privacyOk: privacy successfully changed
 notYours: you can not give a portal that is not yours
 offlinePlayer: reciever player is not online
+beConsole: this command can only be used at server console
+mustConfirm: you must confirm by typing "%1$s confirm"
+# success
+activatedOk: portal created, set a name with "/portal name myPortal"
+namedOk: portal successfully named
+destOk: destination successfully changed
+privacyOk: privacy successfully changed
 giveOk: portal successfully transferred
-beConsole: this subcommand can only be used at server console
-mustConfirm: you must confirm by typing '%1$s confirm'
-rebuilding: rebuilding portals, please wait...
+recieveOk: player %$1s has gived you the portal %$2s
 rebuilded: portals rebuilding finished

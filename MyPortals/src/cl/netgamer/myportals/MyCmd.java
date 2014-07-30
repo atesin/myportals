@@ -105,7 +105,7 @@ public class MyCmd implements CommandExecutor{
 				
 			// unknown subcommand
 			default:
-				sender.sendMessage("portal "+args[0]+": "+msg("unknownCmd"));
+				sender.sendMessage("portal : "+msg("unknownCmd"));
 				return true;
 			}
 			
@@ -120,22 +120,25 @@ public class MyCmd implements CommandExecutor{
 				}
 				switch (args[1].toLowerCase()){
 				case "name":
-					sender.sendMessage("/portal help name\n"+msg("helpname"));
+					sender.sendMessage("/portal help name\n"+msg("helpName"));
 					return true;
 				case "dest":
-					sender.sendMessage("/portal help dest\n"+msg("helpdest"));
+					sender.sendMessage("/portal help dest\n"+msg("helpDest"));
 					return true;
 				case "public":
 				case "lock":
 				case "hide":
 				case "private":
-					sender.sendMessage("/portal help "+args[1].toLowerCase()+"\n"+msg("helpprivacy"));
+					sender.sendMessage("/portal help "+args[1].toLowerCase()+"\n"+msg("helpPrivacy"));
+					return true;
+				case "give":
+					sender.sendMessage("/portal help give\n"+msg("helpGive"));
 					return true;
 				case "list":
-					sender.sendMessage("/portal help list\n"+msg("helplist"));
+					sender.sendMessage("/portal help list\n"+msg("helpList"));
 					return true;
 				case "info":
-					sender.sendMessage("/portal help info\n"+msg("helpinfo"));
+					sender.sendMessage("/portal help info\n"+msg("helpInfo"));
 					return true;
 				}
 			}
