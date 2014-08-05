@@ -7,9 +7,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-
 import org.bukkit.Location;
+// 179
 import org.bukkit.craftbukkit.v1_7_R3.CraftWorld;
+// 1710
+//import org.bukkit.craftbukkit.v1_7_R4.CraftWorld;
 
 public class Shape {
 	
@@ -230,7 +232,7 @@ class ShapeReplace implements ShapeInterface{
 			((CraftWorld) loc.getBlock().getWorld()).getHandle().isStatic = Static;
 			return true;
 		}
-		loc.getBlock().setTypeId(ref.intValue());
+		loc.getBlock().setTypeIdAndData(ref.intValue(), (byte) ((ref.doubleValue() % 1) * 100), false);
 		return true;
 	}
 }

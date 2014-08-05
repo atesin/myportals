@@ -249,7 +249,7 @@ public class MyCmd implements CommandExecutor{
 				return true;
 			}
 			Player player = (Player) sender;
-			//player.sendMessage("id data = "+player.getTargetBlock(null, 100).getTypeId()+" "+player.getTargetBlock(null, 100).getData());
+			if (MyPortals.debug) player.sendMessage("id, data = "+player.getTargetBlock(null, 100).getTypeId()+", "+player.getTargetBlock(null, 100).getData());
 
 			// get looked location
 			Location viewLoc = getTarget(player);

@@ -26,6 +26,7 @@ public final class MyPortals extends JavaPlugin{
 		
 	// PROPERTIES
 	
+	static boolean debug;
 	private static Map<String, Object> allowedWorlds;
 	boolean interWorlds;
 	protected int xpCost;
@@ -40,9 +41,13 @@ public final class MyPortals extends JavaPlugin{
 	
 	public void onEnable(){
 		this.saveDefaultConfig();
-		if (getConfig().getBoolean("disabled")) return;
+		if (getConfig().getBoolean("disabled")){
+			getLogger().info("MyPortals disabled (does nothing)");
+			return;
+		}
+		debug = getConfig().getBoolean("debug");
 		logger = getLogger();
-		
+
 		allowedWorlds = getConfig().getConfigurationSection("allowedWorlds").getValues(false);
 		interWorlds = getConfig().getBoolean("interWorlds");
 		xpCost = getConfig().getInt("xpCost");
@@ -103,7 +108,7 @@ public final class MyPortals extends JavaPlugin{
 	protected String info(Portal portal, String sender){
 		// hidden?
 		if (!portal.getOwner().equalsIgnoreCase(sender) && portal.getPrivacy() > 1 && !sender.equals("CONSOLE")) return null;
-		String ans = "§E"+tags[4]+"`: "+MyPortals.locationEncode(portal.getLocation())+"\n";
+		String ans = "ï¿½E"+tags[4]+"`: "+MyPortals.locationEncode(portal.getLocation())+"\n";
 		ans += tags[5]+"`: "+portal.getOwner()+"\n";
 		ans += tags[6]+"`: "+portal.getName()+"\n";
 		ans += tags[7]+"`: "+tags[portal.getPrivacy()]+"\n";

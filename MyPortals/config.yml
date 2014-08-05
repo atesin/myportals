@@ -1,8 +1,9 @@
 # default configuration file for MyPortals plugin
 # if console throws exceptions, check your syntax
 
-# an easy way to disable plugin without restarting server
-#disabled: true
+# an easy way to disable and test plugin server
+disabled: false
+debug: false
 
 # locale prefix. you can also copy, rename and edit lang-EN.yml
 locale: EN
