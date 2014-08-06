@@ -150,9 +150,6 @@ public final class MyPortals extends JavaPlugin{
 	}
 	
 	protected String dest(Portal portal, String destName, Player player){
-		// can set destination?
-		if (!portal.getOwner().equalsIgnoreCase(player.getName()) && portal.getPrivacy() > 0) return "locked";
-		
 		// if not fullname add owner
 		if (destName.indexOf(":") < 0) destName = player.getName()+":"+destName;
 		
@@ -163,39 +160,30 @@ public final class MyPortals extends JavaPlugin{
 		// can dest to diffrent world?
 		if (!interWorlds && !destLoc.getWorld().equals(portal.getLocation().getWorld())) return "diffrentWorlds";
 		
-		// set destination
-		if (!portal.setDest(destLoc, player.getLocation().getYaw())) return "unnamed";
-		data.savePortal(portal);
-		return "destOk";
+		// try to set destination
+		String status = portal.setDestination(destLoc, player);
+		if (status.equals("destOk")) data.savePortal(portal);
+		return status;
 	}
 	
 	protected String setPrivacy(Portal portal, int privacy, Player player){
-		// can change privacy?
-		if (!portal.getOwner().equalsIgnoreCase(player.getName()) && portal.getPrivacy() > 0) return "locked";
-		
 		// try to change privacy
-		if (!portal.setPrivacy(privacy, player.getLocation().getYaw())) return "unnamed";
-		data.savePortal(portal);
-		return "privacyOk";
+		String status = setPrivacy(portal, privacy, player);
+		if (status.equals("privacyOk")) data.savePortal(portal);
+		return status;
 	}
 	
-	protected String give(Portal portal, String recipient, String owner){
-		// portal is yours?
-		if (!portal.getOwner().equalsIgnoreCase(owner)) return "notYours";
-		
-		// is recipient online?, correct name
-		Player newOwner = Bukkit.getPlayerExact(recipient);
-		if (newOwner == null) return "offlinePlayer";
-		recipient = newOwner.getName();
-		
+	protected String give(Portal portal, Player currentOwner, String recipient){
 		// recipient has a portal with same name?
-		if (getLocationByFullName(newOwner.getName()+":"+portal.getName()) != null) return "busyName";
+		if (getLocationByFullName(recipient+":"+portal.getName()) != null) return "busyName";
 		
-		// change owner
-		if (!portal.setOwner(recipient)) return "unnamed";
-		data.savePortal(portal);
-		newOwner.sendMessage(String.format(cmd.msg("recieveOk"), owner, portal.getName()));
-		return "giveOk";
+		// try to change owner
+		String status = portal.give(currentOwner, recipient);
+		if (status.equals("giveOk")){
+			data.savePortal(portal);
+			Bukkit.getPlayerExact(recipient).sendMessage(String.format(cmd.msg("recieveOk"), currentOwner.getName(), portal.getName()));
+		}
+		return status;
 	}
 	
 	protected void rebuild(){

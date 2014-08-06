@@ -2,6 +2,7 @@ package cl.netgamer.myportals;
 
 import java.util.List;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
@@ -102,34 +103,13 @@ public class Portal {
 		return "namedOk";
 	}
 	
-	boolean setOwner(String owner){
-		if (name.length() == 0) return false;
-		this.owner = owner;
-		fullName = owner+":"+name;
-		return true;
-	}
-	
-	boolean setDest(Location destination, float yaw){
-		if (name.length() == 0) return false;
-		this.destination = destination;
-		this.direction = yaw + 180;
-		return true;
-	}
-	
-	// check if portal exists at destination first
+	// check if destination portal exists before
 	String setDestination(Location destination, Player player){
 		if (name.length() < 1) return "noName";
 		if (!owner.equals(player.getName()) && privacy > 0) return "locked";
 		this.destination = destination;
 		direction = player.getLocation().getYaw() + 180;
 		return "destOk";
-	}
-	
-	boolean setPrivacy(int privacy, float yaw){
-		if (name.length() == 0) return false;
-		this.privacy = privacy;
-		this.direction = yaw + 180;
-		return true;
 	}
 	
 	String setPrivacy(int privacy, Player player){
@@ -143,10 +123,12 @@ public class Portal {
 	// REGULAR METHODS
 	
 	// must check if recipient has a portal with same name before
-	String give(Player currentOwner, Player recipient){
+	String give(Player currentOwner, String recipient){
 		if (name.length() < 1) return "noName";
 		if (!owner.equals(currentOwner.getName())) return "notYours";
-		owner = recipient.getName();
+		Player newOwner = Bukkit.getPlayerExact(recipient);
+		if (newOwner == null) return "offlinePlayer";
+		owner = newOwner.getName();
 		fullName = owner+":"+name;
 		return "giveOk";
 	}

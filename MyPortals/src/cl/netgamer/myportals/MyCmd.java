@@ -293,7 +293,7 @@ public class MyCmd implements CommandExecutor{
 				return true;
 				
 			case "give":
-				player.sendMessage("portal give: "+msg(plugin.give(portal, args[1], player.getName())));
+				player.sendMessage("portal give: "+msg(plugin.give(portal, player, args[1])));
 				return true;
 				
 			}

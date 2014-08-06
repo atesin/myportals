@@ -4,8 +4,8 @@ version: 15
 
 commands:
    portal:
-      description: implements user created portals.
-      usage: "/portal: show available subcommands"
+      description: implements teleporting trougth user created portals
+      usage: "/portal: currently MyPortals is disabled"
       #permission: <plugin name>.basic
       #permission-message: You don't have <permission>
 
