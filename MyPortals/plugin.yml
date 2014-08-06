@@ -5,7 +5,7 @@ version: 15
 commands:
    portal:
       description: implements teleporting trougth user created portals
-      usage: "/portal: currently MyPortals is disabled"
+      usage: currently MyPortals is disabled
       #permission: <plugin name>.basic
       #permission-message: You don't have <permission>
 
