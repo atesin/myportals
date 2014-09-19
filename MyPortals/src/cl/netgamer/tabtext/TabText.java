@@ -18,7 +18,7 @@ import java.util.Map;
  * 
  * - // example
  * - multilineString  = "PLAYER------`RATE------`RANK------\n";
- * - multilineString += "§EJohn`10.01`1§R\n";
+ * - multilineString += "ï¿½EJohn`10.01`1ï¿½R\n";
  * - multilineString += "Doe`-9.30`2";
  * 
  * - TabText tt = new TabText(multilineString);
@@ -40,7 +40,7 @@ public class TabText{
 	private int numPages;
 	private String[] lines;
 	private Map<Integer, String> charList = new HashMap<Integer, String>(){{
-		put(-6, "§");
+		put(-6, "ï¿½");
 		put(2, "!.,:;i|");
 		put(3, "'`l");
 		put(4, " I[]t");
@@ -147,7 +147,7 @@ public class TabText{
 				tab = (monospace)? tabs[fieldPos]: tabs[fieldPos] * 6;
 				field = pxSubstring(fields[fieldPos], tab, monospace);
 				line += (String)field[0];
-				lineLen += (int)field[1];
+				lineLen += (Integer)field[1];
 				lineLen2 += tab;
 			}
 			lines2 += (lines2.length() < 1)? line: '\n'+line;
@@ -186,7 +186,7 @@ public class TabText{
 	 * @return character width depending of "mono"
 	 */
 	private int pxLen(char ch, boolean mono){
-		if (mono) return (ch == '§')? -1: 1;
+		if (mono) return (ch == 'ï¿½')? -1: 1;
 		// character list iteration, 6 = default
 		int l = 6;
 		for (int px: charList.keySet()){
@@ -225,7 +225,7 @@ public class TabText{
 		for (int i = 0; i < lines.length; ++i){
 			
 			// iterate fields
-			fields = lines[i].replaceAll("§.", "").split("`", -1);
+			fields = lines[i].replaceAll("ï¿½.", "").split("`", -1);
 			line = "";
 			
 			for (int j = 0; j < keys.length; ++j){
