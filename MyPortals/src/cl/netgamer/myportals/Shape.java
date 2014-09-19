@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import org.bukkit.Location;
 // 179
-import org.bukkit.craftbukkit.v1_7_R3.CraftWorld;
+//import org.bukkit.craftbukkit.v1_6_R3.CraftWorld;
 // 1710
 //import org.bukkit.craftbukkit.v1_7_R4.CraftWorld;
 
@@ -226,10 +226,10 @@ class ShapeReplace implements ShapeInterface{
 	public boolean use(Location loc, Number ref, Location base){
 		// if replacing by red lamp on
 		if (ref.intValue() == 124){
-			boolean Static = ((CraftWorld) loc.getBlock().getWorld()).getHandle().isStatic;
-			((CraftWorld) loc.getBlock().getWorld()).getHandle().isStatic = true;
+			//boolean Static = ((CraftWorld) loc.getBlock().getWorld()).getHandle().isStatic;
+			//((CraftWorld) loc.getBlock().getWorld()).getHandle().isStatic = true;
 			loc.getBlock().setTypeId(124);
-			((CraftWorld) loc.getBlock().getWorld()).getHandle().isStatic = Static;
+			//((CraftWorld) loc.getBlock().getWorld()).getHandle().isStatic = Static;
 			return true;
 		}
 		loc.getBlock().setTypeIdAndData(ref.intValue(), (byte) ((ref.doubleValue() % 1) * 100), false);

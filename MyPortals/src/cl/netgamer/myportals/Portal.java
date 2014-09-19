@@ -93,7 +93,7 @@ public class Portal {
 		// can change name? 
 		if (!player.getName().equalsIgnoreCase(owner) && privacy > 0) return "locked";
 		// check name syntax
-		if (!name.matches("[a-zA-Z0-9]{1,12}")) return "invalidName";
+		if (!portalName.matches("\\w{1,12}")) return "invalidName";
 		name = portalName;
 		// on first naming give ownership
 		if (owner.length() < 1) owner = player.getName();
