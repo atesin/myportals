@@ -18,12 +18,12 @@ import java.util.Map;
  * 
  * - // example
  * - multilineString  = "PLAYER------`RATE------`RANK------\n";
- * - multilineString += "§EJohn`10.01`1§R\n";
+ * - multilineString += "Â§EJohn`10.01`1Â§R\n";
  * - multilineString += "Doe`-9.30`2";
  * 
  * - TabText tt = new TabText(multilineString);
  * - int numPages = tt.setPageHeight(pageHeight); // set page height and get number of pages
- * - tt.setTabs(10, 18, ...); // horizontal tabs positions
+ * - tt.setTabs(10, 18, ...); // horizontal tabs positions, considering 6px chars
  * - tt.sortByFields(-2, 1); // sort by second column descending, then by first
  * - printedText = tt.getPage(desiredPage, (boolean) monospace); // get your formatted page, for console or chat area
  * 
@@ -40,7 +40,7 @@ public class TabText{
 	private int numPages;
 	private String[] lines;
 	private Map<Integer, String> charList = new HashMap<Integer, String>(){{
-		put(-6, "§");
+		put(-6, "Â§");
 		put(2, "!.,:;i|");
 		put(3, "'`l");
 		put(4, " I[]t");
@@ -186,7 +186,7 @@ public class TabText{
 	 * @return character width depending of "mono"
 	 */
 	private int pxLen(char ch, boolean mono){
-		if (mono) return (ch == '§')? -1: 1;
+		if (mono) return (ch == 'Â§')? -1: 1;
 		// character list iteration, 6 = default
 		int l = 6;
 		for (int px: charList.keySet()){
@@ -225,7 +225,7 @@ public class TabText{
 		for (int i = 0; i < lines.length; ++i){
 			
 			// iterate fields
-			fields = lines[i].replaceAll("§.", "").split("`", -1);
+			fields = lines[i].replaceAll("Â§.", "").split("`", -1);
 			line = "";
 			
 			for (int j = 0; j < keys.length; ++j){
