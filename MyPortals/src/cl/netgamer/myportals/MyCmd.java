@@ -36,7 +36,7 @@ public class MyCmd implements CommandExecutor{
 	
 	// METHODS
 	
-	@Override
+	//@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String alias, String[] args){
 		
 		if(cmd.getName().equalsIgnoreCase("portal")){
@@ -304,7 +304,7 @@ public class MyCmd implements CommandExecutor{
 	
 	// UTILITY
 	
-	String msg(String key){
+	public String msg(String key){
 		if (key.length() < 20 && lang.msg.containsKey(key)) return lang.msg.get(key);
 		else return key;
 	}

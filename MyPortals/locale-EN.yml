@@ -85,7 +85,7 @@ hidden: can't display somebody's hidden portal info
 locked: can't modify somebody's locked portal
 invalidName: invalid name, only 1 to 12 ascii letters and numbers
 busyName: the reciever has a same name portal
-nameNotFound: portal name not found, try with "owner:portalName"
+nameNotFound: "portal name not found, try with \"owner:portalName\""
 diffrentWorlds: you can not link diffrent world portals for now
 noName: give the portal a name first
 notYours: you can not give a portal that is not yours
@@ -100,3 +100,4 @@ privacyOk: privacy successfully changed
 giveOk: portal successfully transferred
 recieveOk: player %$1s has gived you the portal %$2s
 rebuilded: portals rebuilding finished
+notEnoughXP: You need more XP to use this portal

@@ -147,7 +147,7 @@ public class TabText{
 				tab = (monospace)? tabs[fieldPos]: tabs[fieldPos] * 6;
 				field = pxSubstring(fields[fieldPos], tab, monospace);
 				line += (String)field[0];
-				lineLen += (int)field[1];
+				lineLen += (Integer)field[1];
 				lineLen2 += tab;
 			}
 			lines2 += (lines2.length() < 1)? line: '\n'+line;

@@ -1,11 +1,12 @@
 package cl.netgamer.myportals;
 
 import org.bukkit.Location;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
-public class WarpTask extends BukkitRunnable{
+public class WarpTask extends BukkitRunnable {
 
 	private MyListener parent;
 	private Player player;
@@ -18,17 +19,13 @@ public class WarpTask extends BukkitRunnable{
 	}
 
 	// this runs every tick?
-	@Override
+	//@Override
 	public void run(){
 		// canceled?
 		if (!parent.warps.containsValue(this.getTaskId())) return;
 		
 		// remove nausea effect before
-		player.removePotionEffect(PotionEffectType.getById(9));
-		
-		// player has enough experience points?
-		int xp = player.getTotalExperience();
-		if (xp < parent.plugin.xpCost) return;
+		player.removePotionEffect(PotionEffectType.CONFUSION);
 
 		// source portal still exists?
 		Portal portal = parent.plugin.getPortalByLocation(location);
@@ -37,6 +34,13 @@ public class WarpTask extends BukkitRunnable{
 		// destination portal exists?
 		portal = parent.plugin.getPortalByLocation(portal.getDestination());
 		if (portal == null) return;
+		
+		// player has enough experience points?
+		int xp = player.getTotalExperience();
+		if (xp < parent.plugin.xpCost) {
+			player.playSound(player.getLocation(), Sound.VILLAGER_NO, 5, 0);
+			return;
+		}
 		
 		// allow teleport?
 		//if (!portal.canWarp(player)) return;
