@@ -5,6 +5,10 @@
 disabled: false
 debug: false
 
+# time in ticks for the player to wait until they are teleported
+# don't set this too low or they won't be able to get out of the portal before thery are teleported again
+waitTime: 80
+
 # locale prefix. you can also copy, rename and edit lang-EN.yml
 locale: EN
 

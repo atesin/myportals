@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.bukkit.Bukkit;
@@ -24,6 +25,7 @@ public final class MyPortals extends JavaPlugin{
 		logger.info(msg);
 	}
 		
+	public static int waitTime;
 	// PROPERTIES
 	
 	static boolean debug;
@@ -36,15 +38,27 @@ public final class MyPortals extends JavaPlugin{
 	MyCmd cmd;
 	private String[] tags;
 	
+	public boolean blockplacecooldown = false;
+	
+	private static Lang lang;
+	public static String msg(String key){
+		if (key.length() < 20 && lang.msg.containsKey(key)) return lang.msg.get(key);
+		else return key;
+	}
 	
 	// ENABLE PLUGIN
 	
 	public void onEnable(){
 		this.saveDefaultConfig();
+		
 		if (getConfig().getBoolean("disabled")){
 			getLogger().info("MyPortals disabled (does nothing)");
 			return;
 		}
+		
+		lang = new Lang(this, getConfig().getString("locale"));
+		
+		waitTime = getConfig().getInt("waitTime");
 		debug = getConfig().getBoolean("debug");
 		logger = getLogger();
 
@@ -60,6 +74,8 @@ public final class MyPortals extends JavaPlugin{
 		getCommand("portal").setExecutor(cmd);
 		tags = cmd.tags;
 		new MyListener(this, shape.getBaseId(), shape.getChargeId(), shape.getMaterials(), shape.getPortalsBlocks(portals));
+		
+		logger.log(Level.INFO, Bukkit.getServer().getWorlds().toString());
 	}
 	
 	// PORTAL INFORMATION
@@ -122,7 +138,13 @@ public final class MyPortals extends JavaPlugin{
 	// PORTAL EVENTS
 	
 	protected boolean create(Player owner, Location baseLoc, int facing){
-		if (!allowedWorlds.containsKey(baseLoc.getWorld().getName())) return false;
+		//MyPortals.log("Is this world (" + baseLoc.getWorld().getName() + ") Authorized?");
+		//MyPortals.log("Well, the list of autorized world is " + allowedWorlds.toString());
+		if (!allowedWorlds.containsKey(baseLoc.getWorld().getName())) {
+			//MyPortals.log("So, no.");
+			return false;
+		}
+		//MyPortals.log("So, yes.");
 		//Portal portal = new Portal(baseLoc, owner, facing);
 		Portal portal = new Portal(baseLoc, facing);
 		data.savePortal(portal);
@@ -168,7 +190,7 @@ public final class MyPortals extends JavaPlugin{
 	
 	protected String setPrivacy(Portal portal, int privacy, Player player){
 		// try to change privacy
-		String status = setPrivacy(portal, privacy, player);
+		String status = portal.setPrivacy(privacy, player);
 		if (status.equals("privacyOk")) data.savePortal(portal);
 		return status;
 	}
@@ -262,7 +284,7 @@ public final class MyPortals extends JavaPlugin{
 		World w = null;
 		for (String s: allowedWorlds.keySet()){
 			if (allowedWorlds.get(s).equals(d[0])){
-				w = Bukkit.getWorld(s);
+				w = Bukkit.getServer().getWorld(s);
 				break;
 			}
 		}
