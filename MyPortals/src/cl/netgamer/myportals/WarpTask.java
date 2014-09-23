@@ -1,6 +1,7 @@
 package cl.netgamer.myportals;
 
 import org.bukkit.Location;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -24,7 +25,7 @@ public class WarpTask extends BukkitRunnable {
 		if (!parent.warps.containsValue(this.getTaskId())) return;
 		
 		// remove nausea effect before
-		player.removePotionEffect(PotionEffectType.getById(9));
+		player.removePotionEffect(PotionEffectType.CONFUSION);
 
 		// source portal still exists?
 		Portal portal = parent.plugin.getPortalByLocation(location);
@@ -37,7 +38,7 @@ public class WarpTask extends BukkitRunnable {
 		// player has enough experience points?
 		int xp = player.getTotalExperience();
 		if (xp < parent.plugin.xpCost) {
-			player.sendMessage(MyPortals.msg("notEnoughXP"));
+			player.playSound(player.getLocation(), Sound.VILLAGER_NO, 5, 0);
 			return;
 		}
 		

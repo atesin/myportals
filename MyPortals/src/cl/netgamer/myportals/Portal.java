@@ -133,6 +133,10 @@ public class Portal {
 		return "giveOk";
 	}
 	
+	public boolean canWarp(Player player) {
+		return player.getName().equalsIgnoreCase(getOwner()) && privacy > 2;
+	}
+	
 	boolean warp(Player player){
 		// allow teleport?
 		//if (!canWarp(player)) return false;

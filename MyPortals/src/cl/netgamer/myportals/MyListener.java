@@ -7,20 +7,25 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Effect;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockBurnEvent;
 import org.bukkit.event.block.BlockCanBuildEvent;
 import org.bukkit.event.block.BlockFromToEvent;
 import org.bukkit.event.block.BlockPhysicsEvent;
+import org.bukkit.event.block.BlockPistonExtendEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.block.BlockRedstoneEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.player.PlayerBucketFillEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -194,23 +199,33 @@ public final class MyListener implements Listener{
 	// on grab water portal with bucket
 	@EventHandler
 	public void onPlayerBucketFill(PlayerBucketFillEvent event){
-		checkPortalDestroyed(event.getBlockClicked());
+		if(isPartOfPortal(event.getBlockClicked())) {
+			event.setCancelled(true);
+			//checkPortalDestroyed(event.getBlockClicked());
+		}
 	}
 
 	
 	// POSSIBLE PORTAL BLOCK DELETED
 	
-	// on block event, check portal shape
-	private void checkPortalDestroyed(Block block){
-		 // was portal material?
-		if (!(materials.contains(block.getTypeId()))){
-			return;
+	private boolean isPartOfPortal(Block block) {
+		// was portal material?
+		if (materials.contains(block.getTypeId())){
+			return true;
 		}
 
 		// belonged some portal?
-		if (!(portalBlocks.containsKey(block.getLocation()))){
-			return;
+		if (portalBlocks.containsKey(block.getLocation())){
+			return true;
 		}
+		
+		return false;
+	}
+	
+	// on block event, check portal shape
+	private void checkPortalDestroyed(Block block){
+		
+		if(!isPartOfPortal(block)) return;
 		
 		// what portals belonged to? (clone to avoid removing while iterating problems)
 		ArrayList<Portal> ofPortals = (ArrayList<Portal>)(portalBlocks.get(block.getLocation())).clone();
@@ -237,7 +252,7 @@ public final class MyListener implements Listener{
 		//MyPortals.log("Step");
 		if (warps.containsKey(event.getPlayer().getName())){
 			warps.remove(event.getPlayer().getName());
-			event.getPlayer().removePotionEffect(PotionEffectType.getById(9));
+			event.getPlayer().removePotionEffect(PotionEffectType.CONFUSION);
 		}
 
 		// portal enter?: create warp task, schedule, store id and play nausea effect
@@ -246,8 +261,33 @@ public final class MyListener implements Listener{
 		WarpTask warp = new WarpTask(this, event.getPlayer(), event.getTo());
 		warp.runTaskLater(plugin, MyPortals.waitTime);
 		warps.put(event.getPlayer().getName(), warp.getTaskId());
-		event.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.getById(9), 160, 1));
+		event.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 160, 1));
 		event.getPlayer().playEffect(event.getPlayer().getEyeLocation(), Effect.ENDER_SIGNAL, 10);
+	}
+	
+	@EventHandler
+	public void onPistonExtend(BlockPistonExtendEvent event) {
+		for(Block block : event.getBlocks()) {
+			checkPortalDestroyed(block);
+		}
+	}
+	
+	@EventHandler
+	public void onPlayerInteract(PlayerInteractEvent event) {
+		Portal p = plugin.getPortalByLocation(event.getClickedBlock().getLocation());
+		if (event.getAction() == Action.RIGHT_CLICK_BLOCK && event.getItem().getType() == Material.COMPASS) {
+			if (p != null) {
+				if (p.canWarp(event.getPlayer())) return;
+				Location dest = p.getDestination();
+				if (dest != null) {
+					event.getPlayer().setCompassTarget(dest);
+				}
+			}
+			if (event.getPlayer().isSneaking()) {
+				Location spawn = event.getPlayer().getWorld().getSpawnLocation();
+				event.getPlayer().setCompassTarget(spawn);
+			}
+		}
 	}
 	
 	// UTILITY
