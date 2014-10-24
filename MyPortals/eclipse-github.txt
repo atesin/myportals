@@ -1,4 +1,23 @@
 
+###########
+
+merge with local repo (from github -> sync local)
+git - remotes - miOrigin - green arrow - rclick - fetch
+git - branches - remote - myOrigin - rclick - merge (- with local/myBranch)
+(not needed?) pkg explorer - myProject - rclick - team - remote - fetch
+
+commit to repos (from workspace -> sync github)
+pkg explorer - myProject - rclick - team - commit - commit+push
+
+###########
+
+IMPORT FROM GITHUB
+
+myProject > rclick > import > git > clone url > paste github ssh url project
+if not empty dir, delete repo before
+
+---------------------------
+
 ADD AN ECLIPSE INSTALLATION TO WORK WITH GITHUB
 
 - create a github account
@@ -58,23 +77,6 @@ merge local repo with remote repo (first time ask password)
 in git repos view
 my project - branches - local - my repo - r click - push
 paste repo uri - next - select branch - push
-
-###########
-
-merge with local repo (from github -> sync local)
-git - remotes - miOrigin - green arrow - rclick - fetch
-git - branches - remote - myOrigin - rclick - merge (- with local/myBranch)
-(not needed?) pkg explorer - myProject - rclick - team - remote - fetch
-
-commit to repos (from workspace -> sync github)
-pkg explorer - myProject - rclick - team - commit - commit+push
-
-###########
-
-IMPORT FROM GITHUB
-
-myProject > rclick > import > git > clone url > paste github ssh url project
-if not empty dir, delete repo before
 
 ---------------------------------
 
