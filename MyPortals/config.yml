@@ -1,0 +1,133 @@
+# default configuration file for MyPortals plugin
+# if console throws exceptions, check your syntax
+
+# an easy way to disable plugin without restarting server
+#disabled: true
+
+# locale prefix. you can also copy, rename and edit lang-EN.yml
+locale: EN
+
+# worlds allowed to activate portals, + 1 uppercase letter location prefix
+allowedWorlds:
+  world: W
+#  world_nether: N
+#  world_the_end: E
+
+# can point a portal to another world
+interWorlds: false
+
+# experience points teleporting costs (5 = kill 1 regular mob)
+xpCost: 5
+
+# portal structure
+shapeInactive:
+  center: [123, 51, 0, 49]
+  sides: [null, 49, 49]
+shapeActivate:
+  center: [124, 9, 9, 49]
+
+
+# 
+# PORTAL SHAPE STRUCTURE:
+# 
+# portal shape are checked by columns, in a 3x3 grid (center, front, back, sides, corners), from the lower floor layer
+# the numbers represents material id, you can also specify data id by adding 2 digit decimal numbers
+# when some number is "null" then material checking will be skipped, you must however have at least
+# 
+# center: [base, charge]
+# 
+# base: central base portal block, where you enter and stand up to be teleported
+# charge: block placed over base to activate portal, like you put fire in nether portal floor to activate it
+# 
+# when you try to activate a portal by placing a charge block over a base block it start checking "shapeInactive" in all 4 facings (south, west, north, east)
+# if checking passes then it proceeds to save and activating portal by replacing materials specified in "shapeActivate"
+# 
+# if you replaces the center with water to do a vortex effect (USE ID 9 OR SHAPE WILL BE ERRATICALLY DETECTED)
+# i recommend that you enclose it with blocks that holds but let player in (fences, doors, signs, gates, etc. find the one you like)
+# 
+# note besides basic structure shape, you can beautify with torches, signs, arcs, fences, plants, etc.
+# as long as you won't touch basic shape or portal will be destroyed and deactivated 
+# next step is to look at base block and name the portal, then set a destination, then optionally set privacy level or give it to someone
+# 
+# EXAMPLES:
+#
+# absolute basic, cheap and renewable portal, a mossy cobblestone activated with a torch, with air to let you in
+# no changes when activated
+# 
+# shapeInactive:
+#   center: [48, 50, 0]
+# shapeActivate:
+#   center: [48, 50, 0]
+# 
+# "default" basic nice illuminated portal
+# when activated with fire (51) on red lamp (123), it turns on (124) and fills the air (0) with water (9)
+# (see image at http://netgamer.cl/foro/attachment.php?aid=32 )
+#
+# shapeInactive:
+#   center: [123, 51, 0]
+#   front: [null, 113, 113]
+#   back: [null, 113, 113]
+#   sides: [null, 113, 113]
+# shapeActivate:
+#   center: [124, 9, 9]
+# 
+# taller pillar version, with exposed lamp to get more illuminated, and nether slabs in corners for easy access
+# (see image at http://netgamer.cl/foro/attachment.php?aid=35 )
+# 
+# shapeInactive:
+#   center: [123, 51, 0, 0]
+#   front: [113, 113, 113, 113]
+#   back: [113, 113, 113, 113]
+#   sides: [113, 113, 113, 113]
+#   corners: [44.06]
+# shapeActivate:
+#   center: [124, 9, 9, 9]
+# 
+# "travel portals" style, note base portal is dirt as MyPortal needs base and charge not to be null
+# (see mmage at http://cpprograms.net/img/mcscreen.png , torchs and signs optional)
+# 
+# shapeInactive:
+#   center: [3, 76, 0]
+#   front: [null, 64, 64]
+#   back: [null, 49, 49]
+#   sides: [null, 49, 49]
+# shapeActivate:
+#   center: [null, 9, 9]
+#
+# SOME USEFUL BLOCKS:
+# 
+# 0: air (useful for spacing and portal deletion)
+# 3: dirt (useful for portal deletion)
+# 9: fixed water (DON'T USE ID 8, SEE NOTES BELOW!)
+# 89: glowstone
+# 86: pumpkin
+# 48: mossy cobblestone
+# 49: obsidian
+# 50: torch placed in any direction
+# 50.05: top placed
+# 51: fire
+# 44: half block (slab) of any material
+# 44.06: nether brick half block
+# 76: redstone torch
+# 55: redstone wire
+# 85: wooden fence
+# 91: pumpkin lamp
+# 112: nether brick
+# 113: nether brick fence
+# 123: redstone lamp off
+# 124: redstone lamp on
+# 
+# WATER NOTES:
+#
+# data files refers as id 8 and 9 to "flowing water" and "fixed water" respectively
+# but it does not mean "circulating water block" and "source water block".
+# "flowing water"=variable height water block, "fixed water"=fixed height water block
+# bukkit uses other mechanism to handle source/circulating water blocks (such events)
+# 
+# when you place block id 8, bukkit turns to id 9 once it get its final form (almost instant)
+# so if you still try to detect portal id 8 in structure shape, you wont detect it
+# and will cause erratic behavior in portals (undeactivable portals, floodings, etc.)
+# to avoid these problems if your portals have water use only id 9 for this
+# 
+# by atesin#gmail.com
+

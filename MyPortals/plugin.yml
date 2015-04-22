@@ -1,0 +1,13 @@
+name: MyPortals
+main: cl.netgamer.myportals.MyPortals
+version: 16
+
+commands:
+   portal:
+      description: implements user created portals.
+      usage: "/portal: show available subcommands"
+      #permission: <plugin name>.basic
+      #permission-message: You don't have <permission>
+
+# aqui tambien se configuran los permisos
+# no usar la letra enye

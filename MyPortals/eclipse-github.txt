@@ -1,0 +1,109 @@
+
+ADD AN ECLIPSE INSTALLATION TO WORK WITH GITHUB
+
+- create a github account
+- in eclipse go to > window > preferences > general > network connections > ssh2
+- then go to > key magement > generate rsa key
+- put a password in "passphrase" and "confirm passphrase"
+- click "save private key" and give the default name/location
+- select all text in "you can paste this public key..." field, copy and click "OK"
+- back on your github profile, go to "ssh keys", click "add ssh key"
+- in the "title" field enter some name to identify your computer
+- in the "key" field paste the text you copied from eclipse ssh2 config and press "add key"
+
+
+
+
+FETCH
+
+
+PUSH
+
+--------------------------------
+
+fetch to local repo
+
+project r click
+team
+add to index
+
+
+add git repos view
+
+menu window - open views - (other) - git - git repos
+
+
+fetch from github to remote
+
+in git repos view...
+open remotes - origin - fetch (rgeen left arrow) r click - (configure - paste uri - add map) - fetch
+
+
+copy github repo uri
+
+in github repo, there is a small link bottom right , select ssh and copy url
+
+
+PUSH TO GITHUB
+
+commit workspace to local repo
+
+//project - r click - team - add to index
+project - r click - team - commit
+enter a message - select files - commit (and push?)
+
+
+merge local repo with remote repo (first time ask password)
+
+in git repos view
+my project - branches - local - my repo - r click - push
+paste repo uri - next - select branch - push
+
+###########
+
+merge with local repo (from github -> sync local)
+git - remotes - miOrigin - green arrow - rclick - fetch
+git - branches - remote - myOrigin - rclick - merge (- with local/myBranch)
+(not needed?) pkg explorer - myProject - rclick - team - remote - fetch
+
+commit to repos (from workspace -> sync github)
+pkg explorer - myProject - rclick - team - commit - commit+push
+
+###########
+
+IMPORT FROM GITHUB
+
+myProject > rclick > import > git > clone url > paste github ssh url project
+if not empty dir, delete repo before
+
+---------------------------------
+
+http://stackoverflow.com/questions/19474186/egit-rejected-non-fast-forward
+
+
+
+    In eclipse, open the view 'Git Repositories'.
+
+    Ensure you see your local repository and can see the remote repository as a subfolder. In my version, it's called Remotes, and then I can see the remote project within that.
+
+    Look for the green arrow pointing to the left, this is the 'fetch' arrow. Right click and select 'Configure Fetch'.
+
+    You should see the URI, ensure that it points to the remote repository.
+
+    Look in the ref mappings section of the pop-up. Mine was empty. This will indicate which remote references you want to fetch. Click 'Add'.
+
+    Type in the branch name you need to fetch from the remote repository. Mine was 'Master' (btw, a dropdown here would be great!!, for now, you have to type it). Continue through the pop-up, eventually clicking 'Finish'.
+
+    Click 'Save and Fetch'. This will fetch that remote reference.
+
+    Look in the 'Branches' folder of your local repository. You should now see that remote branch in the remote folder. Again, I see 'master'.
+
+    Right-Click on the local branch in the 'Local' folder of 'Branches'. Select 'Merge', and then select the remote branch.
+
+    Process through the merge.
+
+    Commit any changes to your local repository.
+
+    Push your changes to the remote repository.
+
+    Go have a tasty beverage, congratulating yourself. Take the rest of the day off.
