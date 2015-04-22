@@ -1,0 +1,115 @@
+	// BEGIN TEST EVENTS
+	// BlockEvent y BlockPistonEvent no aplican, otros eventos los usan
+	
+	@EventHandler
+	public void onBlockBreakEvent(BlockBreakEvent event){
+	if (portalBlocks.containsKey(event.getBlock().getLocation())) MyPortals.log("BlockBreakEvent");
+	}
+
+	@EventHandler
+	public void onBlockBurnEvent(BlockBurnEvent event){
+	if (portalBlocks.containsKey(event.getBlock().getLocation())) MyPortals.log("BlockBurnEvent");
+	}
+
+	@EventHandler
+	public void onBlockCanBuildEvent(BlockCanBuildEvent event){
+	if (portalBlocks.containsKey(event.getBlock().getLocation())) MyPortals.log("BlockCanBuildEvent");
+	}
+
+	@EventHandler
+	public void onBlockDamageEvent(BlockDamageEvent event){
+	if (portalBlocks.containsKey(event.getBlock().getLocation())) MyPortals.log("BlockDamageEvent");
+	}
+
+	@EventHandler
+	public void onBlockDispenseEvent(BlockDispenseEvent event){
+	if (portalBlocks.containsKey(event.getBlock().getLocation())) MyPortals.log("BlockDispenseEvent");
+	}
+
+	@EventHandler
+	public void onBlockExpEvent(BlockExpEvent event){
+	if (portalBlocks.containsKey(event.getBlock().getLocation())) MyPortals.log("BlockExpEvent");
+	}
+
+	@EventHandler
+	public void onBlockFadeEvent(BlockFadeEvent event){
+	if (portalBlocks.containsKey(event.getBlock().getLocation())) MyPortals.log("BlockFadeEvent");
+	}
+
+	@EventHandler
+	public void onBlockFormEvent(BlockFormEvent event){
+	if (portalBlocks.containsKey(event.getBlock().getLocation())) MyPortals.log("BlockFormEvent");
+	}
+
+	@EventHandler
+	public void onBlockFromToEvent(BlockFromToEvent event){
+	if (portalBlocks.containsKey(event.getBlock().getLocation())) MyPortals.log("BlockFromToEvent");
+	}
+
+	@EventHandler
+	public void onBlockGrowEvent(BlockGrowEvent event){
+	if (portalBlocks.containsKey(event.getBlock().getLocation())) MyPortals.log("BlockGrowEvent");
+	}
+
+	@EventHandler
+	public void onBlockIgniteEvent(BlockIgniteEvent event){
+	if (portalBlocks.containsKey(event.getBlock().getLocation())) MyPortals.log("BlockIgniteEvent");
+	}
+
+	@EventHandler
+	public void onBlockMultiPlaceEvent(BlockMultiPlaceEvent event){
+	if (portalBlocks.containsKey(event.getBlock().getLocation())) MyPortals.log("BlockMultiPlaceEvent");
+	}
+
+	@EventHandler
+	public void onBlockPhysicsEvent(BlockPhysicsEvent event){
+	if (portalBlocks.containsKey(event.getBlock().getLocation())) MyPortals.log("BlockPhysicsEvent");
+	}
+	
+	@EventHandler
+	public void onBlockPistonExtendEvent(BlockPistonExtendEvent event){
+	if (portalBlocks.containsKey(event.getBlock().getLocation())) MyPortals.log("BlockPistonExtendEvent");
+	}
+
+	@EventHandler
+	public void onBlockPistonRetractEvent(BlockPistonRetractEvent event){
+	if (portalBlocks.containsKey(event.getBlock().getLocation())) MyPortals.log("BlockPistonRetractEvent");
+	}
+
+	@EventHandler
+	public void onBlockPlaceEvent(BlockPlaceEvent event){
+	if (portalBlocks.containsKey(event.getBlock().getLocation())) MyPortals.log("BlockPlaceEvent");
+	}
+
+	@EventHandler
+	public void onBlockRedstoneEvent(BlockRedstoneEvent event){
+	if (portalBlocks.containsKey(event.getBlock().getLocation())) MyPortals.log("BlockRedstoneEvent");
+	}
+
+	@EventHandler
+	public void onBlockSpreadEvent(BlockSpreadEvent event){
+	if (portalBlocks.containsKey(event.getBlock().getLocation())) MyPortals.log("BlockSpreadEvent");
+	}
+
+	@EventHandler
+	public void onEntityBlockFormEvent(EntityBlockFormEvent event){
+	if (portalBlocks.containsKey(event.getBlock().getLocation())) MyPortals.log("EntityBlockFormEvent");
+	}
+
+	@EventHandler
+	public void onLeavesDecayEvent(LeavesDecayEvent event){
+	if (portalBlocks.containsKey(event.getBlock().getLocation())) MyPortals.log("LeavesDecayEvent");
+	}
+
+	@EventHandler
+	public void onNotePlayEvent(NotePlayEvent event){
+	if (portalBlocks.containsKey(event.getBlock().getLocation())) MyPortals.log("NotePlayEvent");
+	}
+
+	@EventHandler
+	public void onSignChangeEvent(SignChangeEvent event){
+	if (portalBlocks.containsKey(event.getBlock().getLocation())) MyPortals.log("SignChangeEvent");
+	}
+
+	
+	// END TEST EVENTS
