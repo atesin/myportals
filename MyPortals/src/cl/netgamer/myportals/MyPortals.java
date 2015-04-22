@@ -145,7 +145,7 @@ public final class MyPortals extends JavaPlugin{
 		if (getLocationByFullName(name) != null) return "busyName";
 		
 		// set name
-		portal.setName(name, player.getLocation().getYaw());
+		portal.setFullName(name, player.getLocation().getYaw());
 		data.savePortal(portal);
 		return "namedOk";
 	}
@@ -201,6 +201,10 @@ public final class MyPortals extends JavaPlugin{
 		for (Portal p: portals.values()) shape.rebuild(p);
 	}
 	
+	protected void rebuild(Location loc){
+		shape.rebuild(getPortalByLocation(loc));
+	}
+	
 	// UTILITY METHODS
 	
 	// external use
@@ -216,7 +220,7 @@ public final class MyPortals extends JavaPlugin{
 	 */
 	private Location getLocationByFullName(String name){
 		if (name == null) return null;
-		for (Portal p: portals.values()) if (p.getFullName().equalsIgnoreCase(name)) return p.getLocation();
+		for (Portal p: portals.values())if (p.getFullName().equalsIgnoreCase(name)) return p.getLocation();
 		return null;
 	}
 	

@@ -1,19 +1,19 @@
 # default configuration file for MyPortals plugin
 # if console throws exceptions, check your syntax
 
-# an easy way to disable plugin without restarting server
+# an easy way to "disable" plugin without restarting server, reads config and exits doing nothing
 #disabled: true
 
-# locale prefix. you can also copy, rename and edit lang-EN.yml
+# locale prefix. you can also copy, rename and edit lang-EN.yml , then upload to project page ;)
 locale: EN
 
-# worlds allowed to activate portals, + 1 uppercase letter location prefix
+# custom worlds allowed to activate portals, + 1 uppercase letter prefix for easy reading coords
 allowedWorlds:
   world: W
 #  world_nether: N
 #  world_the_end: E
 
-# can point a portal to another world
+# can link a portal to another world? (or just can link portals in the same world?)
 interWorlds: false
 
 # experience points teleporting costs (5 = kill 1 regular mob)
@@ -21,7 +21,9 @@ xpCost: 5
 
 # portal structure
 shapeInactive:
-  center: [123, 51, 0, 49]
+## DUE A RECENT IMCOMPATIBILITY WITH 1.8.X I COULDNT SOLVE YET
+## I RECOMMEND ACTIVATION ITEM TORCH (ID 50) INSTEAD OF FIRE (ID 51)
+  center: [123, 50, 0, 49]
   sides: [null, 49, 49]
 shapeActivate:
   center: [124, 9, 9, 49]
@@ -44,8 +46,10 @@ shapeActivate:
 # 
 # if you replaces the center with water to do a vortex effect (USE ID 9 OR SHAPE WILL BE ERRATICALLY DETECTED)
 # i recommend that you enclose it with blocks that holds but let player in (fences, doors, signs, gates, etc. find the one you like)
+# no need to hold water anymore because now water is self contained, when it detects water spread event in some of portal blocks it cancels
+# if some water reach the portal and surrounding stays "wet", just cover portal entrance with dirt (not inside portal or will deactivate)
 # 
-# note besides basic structure shape, you can beautify with torches, signs, arcs, fences, plants, etc.
+# note besides basic structure shape, you can beautify portals with torches, signs, arcs, fences, plants, etc.
 # as long as you won't touch basic shape or portal will be destroyed and deactivated 
 # next step is to look at base block and name the portal, then set a destination, then optionally set privacy level or give it to someone
 # 

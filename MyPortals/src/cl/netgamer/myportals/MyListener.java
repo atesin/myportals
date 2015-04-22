@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import net.minecraft.server.v1_8_R2.BlockState;
+
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.event.EventHandler;
@@ -16,6 +18,7 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockBurnEvent;
 import org.bukkit.event.block.BlockCanBuildEvent;
 import org.bukkit.event.block.BlockFromToEvent;
+import org.bukkit.event.block.BlockMultiPlaceEvent;
 import org.bukkit.event.block.BlockPhysicsEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.block.BlockRedstoneEvent;
@@ -56,6 +59,15 @@ public final class MyListener implements Listener{
 	
 	// REGULAR METHODS
 	
+	// pa cachar que pasa
+	// no es un evento :(
+	/*
+	@EventHandler
+	public void onBlockEvent(BlockEvent e){
+		if (portalBlocks.containsKey(e.getBlock().getLocation())) MyPortals.log("event = "+e.getEventName());
+	}
+	*/
+	
 	@EventHandler
 	public void onPlayerQuit(PlayerQuitEvent event){
 		step.clean(event.getPlayer());
@@ -69,13 +81,40 @@ public final class MyListener implements Listener{
 	
 	/** it seems when place fire on redlamp it generates a pulse and lamp powers off */
 	@EventHandler
-	public void onBlockRedstoneEvent(BlockRedstoneEvent event){
+	public void onBlockRedstone(BlockRedstoneEvent event){
 		if (portalBlocks.containsKey(event.getBlock().getLocation())) event.setNewCurrent(event.getOldCurrent());
 	}
-
+	
+	/** it seems when place fire on redlamp it generates multi placement and powers off the lamp */
+	@EventHandler
+	public void onBlockMultiPlaceEvent(BlockMultiPlaceEvent event){
+		if (portalBlocks.containsKey(event.getBlock().getLocation())){
+			//event.setCancelled(true);
+			//plugin.rebuild(event.getBlock().getLocation().clone().add(0, -1, 0));
+			//MyPortals.log("loc = "+event.getBlock().getLocation());
+			for (org.bukkit.block.BlockState bs: event.getReplacedBlockStates()){
+				//MyPortals.log("bs pos = "+bs.getLocation());
+				//MyPortals.log("bs mat = "+bs.getTypeId());
+				//MyPortals.log("changed? = "+bs.setTypeId(124));
+				
+				
+				
+			}
+		}
+	}
+	
+	
+	// hay un evento que apaga la lampara, no es corriente de redstone
+	// parece un evento de player porque el rebuild funciona bien
+	// parece algo que tiene que ver con el encendedor o el fuego
+	// (podias agregar sonidos de status a los teleport)
+	// PUEDE SER BlockMultiPlaceEvent !!!
+	
+	
+	
 	/** self contained water portal blocks */
 	@EventHandler
-	public void onBlockFromToEvent(BlockFromToEvent event){
+	public void onBlockFromTo(BlockFromToEvent event){
 		if (portalBlocks.containsKey(event.getBlock().getLocation())) event.setCancelled(true);
 	}
 

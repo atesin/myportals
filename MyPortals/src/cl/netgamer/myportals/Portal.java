@@ -92,6 +92,13 @@ public class Portal {
 		this.direction = yaw + 180;
 	}
 	
+	/** you cannot set any value if portal is unnamed yet */
+	void setFullName(String fullName, float yaw){
+		this.fullName = fullName;
+		this.name = fullName.replaceAll(".*:", "");
+		this.direction = yaw + 180;
+	}
+	
 	String setName(String portalName, Player player){
 		// can change name? 
 		if (!player.getName().equalsIgnoreCase(owner) && privacy > 0) return "locked";

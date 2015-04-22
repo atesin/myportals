@@ -1,5 +1,6 @@
 package cl.netgamer.myportals;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -8,8 +9,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import net.minecraft.server.v1_8_R2.World;
+
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
-import org.bukkit.craftbukkit.v1_7_R3.CraftWorld;
+import org.bukkit.Material;
+import org.bukkit.Server;
+import org.bukkit.block.Block;
+import org.bukkit.block.BlockState;
+import org.bukkit.craftbukkit.v1_8_R2.CraftWorld;
+import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.inventory.ItemStack;
 
 public class Shape {
 	
@@ -115,7 +126,7 @@ public class Shape {
 	 * internal use, iterates (posible) blocks to do things with shape
 	 * @param loc location of supposed portal
 	 * @param facing shape orientation of the supposed portal (-1 for guess)
-	 * @param shape the interface to use the supposed portal
+	 * @param inter the interface to use the supposed portal
 	 * @return facing (0, 1, 2, 3, -1 = south, west, north, east, none)
 	 */
 	private int loop(Location loc, int facing, Map<String, ArrayList<Number>> ref, ShapeInterface inter){
@@ -173,7 +184,12 @@ public class Shape {
 		for (int i = 0; i < ref.size(); ++i){
 			// if ref is null then continue
 			if (ref.get(i) != null){
-				if (!inter.use(loc2.clone(), ref.get(i), base)) return false;
+				try {
+					if (!inter.use(loc2.clone(), ref.get(i), base)) return false;
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 			loc2.add(0, 1, 0);
 		}
@@ -197,8 +213,9 @@ interface ShapeInterface{
 	 * @param id material to be compared or replaced
 	 * @param base portal locaction related with this
 	 * @return true or false on id comparison, always true in other cases
+	 * @throws Exception 
 	 */
-	boolean use(Location loc, Number id, Location base);
+	boolean use(Location loc, Number id, Location base) throws Exception;
 }
 
 
@@ -221,18 +238,62 @@ class ShapeCompare implements ShapeInterface{
  */
 class ShapeReplace implements ShapeInterface{
 	
-	public boolean use(Location loc, Number ref, Location base){
+	public boolean use(Location loc, Number ref, Location base) throws Exception{
 		// if replacing by red lamp on
 		if (ref.intValue() == 124){
-			boolean Static = ((CraftWorld) loc.getBlock().getWorld()).getHandle().isStatic;
-			((CraftWorld) loc.getBlock().getWorld()).getHandle().isStatic = true;
-			loc.getBlock().setTypeId(124);
-			((CraftWorld) loc.getBlock().getWorld()).getHandle().isStatic = Static;
+			
+			// code taken from lampcontrol plugin to do some tests
+			
+			//Block b = e.getClickedBlock();
+			Block b = loc.getBlock();
+		    BlockState blockState = b.getState();
+
+		    switchLamp(b, true);
+					  
+		    // falta el player
+			//BlockPlaceEvent checkBuildPerms = new BlockPlaceEvent(b, blockState, b, new ItemStack(Material.REDSTONE_LAMP_ON), e.getPlayer(), true);
+			/* BlockPlaceEvent checkBuildPerms = new BlockPlaceEvent(b, blockState, b, new ItemStack(Material.REDSTONE_LAMP_ON), Bukkit.getPlayerExact("ATESIN"), true);
+		    Bukkit.getPluginManager().callEvent(checkBuildPerms);
+		    if (checkBuildPerms.isCancelled())
+		    {
+		      switchLamp(b, false);
+		      MyPortals.log("You don't have permissions to build here!");
+		    } */
+
 			return true;
 		}
 		loc.getBlock().setTypeId(ref.intValue());
 		return true;
 	}
+	
+	
+	  public static void switchLamp(Block b, boolean lighting)
+			    throws Exception
+			  {
+			    World w = ((CraftWorld)b.getWorld()).getHandle();
+			    if (lighting)
+			    {
+			      setWorldStatic(w, true);
+			      b.setType(Material.REDSTONE_LAMP_ON);
+			      setWorldStatic(w, false);
+			    }
+			    else
+			    {
+			      b.setType(Material.REDSTONE_LAMP_OFF);
+			    }
+			  }
+
+	
+	
+	private static void setWorldStatic(World world, boolean static_boolean)
+		    throws Exception
+		  {
+		    Field static_field = World.class.getDeclaredField("isClientSide");
+		    
+		    static_field.setAccessible(true);
+		    static_field.set(world, Boolean.valueOf(static_boolean));
+		  }
+	
 }
 
 
