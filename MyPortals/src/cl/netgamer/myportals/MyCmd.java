@@ -28,7 +28,7 @@ public class MyCmd implements CommandExecutor{
 	
 	MyCmd(MyPortals plugin, String locale, HashSet<Byte> transparents){
 		this.plugin = plugin;
-		lang = new Lang(plugin, plugin.getConfig().getString("locale"));
+		lang = new Lang(plugin, locale);
 		this.transparents = transparents;
 		msg("infoHead").split("`", -1);
 		tags = msg("tags").split(";", -1);
@@ -36,39 +36,39 @@ public class MyCmd implements CommandExecutor{
 	
 	// METHODS
 	
-	//@Override
+	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String alias, String[] args){
 		
 		if(cmd.getName().equalsIgnoreCase("portal")){
 			
 			
-			// with no subparameter show tutorial
 			if (args.length == 0){
-				//sender.sendMessage("MyPortals help (1/4) :\n"+msg("help1"));
-				sender.sendMessage("/portal\n"+msg("portal"));
+				sender.sendMessage("MyPortals help (1/4) :\n"+msg("help1"));
 				return true;
 			}
 			
-			// get subcommand, will use a lot
+			// java 6 switch compliance
+			//int subCmd = Arrays.asList("name", "dest", "public", "locked", "hidden", "private", "give", "2", "3", "4", "info", "list").indexOf(args[0].toLowerCase());
 			String subCmd = args[0].toLowerCase();
 
+			
 			// validate sender
 			if (!subCmd.equals("list") && !subCmd.equals("rebuild") && !subCmd.equals("info") && !(sender instanceof Player)){
 				sender.sendMessage("portal "+args[0]+": "+msg("bePlayer"));
 				return true;
 			}
 			
-			
-			// PARAMETER COUNT
-			
-			
+			// parameters count
 			switch (subCmd){
 			
-			// no subparamters: public, lock, hide, private, info
+			// no subparamters: public, lock, hide, private, 2, 3, 4, info
 			case "public":
 			case "lock":
 			case "hide":
 			case "private":
+			case "2":
+			case "3":
+			case "4":
 				if (args.length != 1){
 					sender.sendMessage("portal "+args[0]+": "+msg("argsNotMatch"));
 					return true;
@@ -85,8 +85,7 @@ public class MyCmd implements CommandExecutor{
 				}
 				break;
 				
-			// up to 1 subparameter: help, info, rebuild
-			case "help":
+			// up to 1 subparameter: info, rebuild
 			case "info":
 			case "rebuild":
 				if (args.length > 2){
@@ -105,48 +104,23 @@ public class MyCmd implements CommandExecutor{
 				
 			// unknown subcommand
 			default:
-				sender.sendMessage("portal : "+msg("unknownCmd"));
+				sender.sendMessage("portal "+args[0]+": "+msg("unknownCmd"));
 				return true;
 			}
 			
 			
-			// HELP PAGES
+			// help pages
+			switch (subCmd){
 			
-			
-			if (subCmd.equalsIgnoreCase("help")){
-				if (args.length == 1){
-					sender.sendMessage("/portal help\n"+msg("help"));
-					return true;
-				}
-				switch (args[1].toLowerCase()){
-				case "name":
-					sender.sendMessage("/portal help name\n"+msg("helpName"));
-					return true;
-				case "dest":
-					sender.sendMessage("/portal help dest\n"+msg("helpDest"));
-					return true;
-				case "public":
-				case "lock":
-				case "hide":
-				case "private":
-					sender.sendMessage("/portal help "+args[1].toLowerCase()+"\n"+msg("helpPrivacy"));
-					return true;
-				case "give":
-					sender.sendMessage("/portal help give\n"+msg("helpGive"));
-					return true;
-				case "list":
-					sender.sendMessage("/portal help list\n"+msg("helpList"));
-					return true;
-				case "info":
-					sender.sendMessage("/portal help info\n"+msg("helpInfo"));
-					return true;
-				}
+			// 2, 3, 4
+			case "2":
+			case "3":
+			case "4":
+				sender.sendMessage("MyPortals help ("+args[0]+"/4) :\n"+msg("help"+args[0]));
+				return true;
 			}
 			
-			
-			// LIST PORTALS: CAN BE PERFORMED BY ANYONE
-			
-			
+			// list: can be performed by anyone
 			if (subCmd.equals("list")){
 				// parameters
 				String owner; 
@@ -199,9 +173,7 @@ public class MyCmd implements CommandExecutor{
 			}
 			
 			
-			// REBUILD PORTALS (SERVER CONSOLE COMMAND)
-			
-			
+			// rebuild
 			if (subCmd.equals("rebuild")){
 				
 				// only by console
@@ -224,9 +196,7 @@ public class MyCmd implements CommandExecutor{
 			}
 
 			
-			// INFO FOR SERVER CONSOLE
-			
-			
+			// info with specified portal
 			if (subCmd.equalsIgnoreCase("info") && !(sender instanceof Player)){
 				if (args.length != 2){
 					sender.sendMessage("portal info: "+msg("argsNotMatch"));
@@ -239,9 +209,7 @@ public class MyCmd implements CommandExecutor{
 				return true;
 			}
 			
-			
-			// GET PLAYER AND HIS SELECTED PORTAL
-			
+			// LOOKING PORTAL COMMANDS
 			
 			// get player
 			if (!(sender instanceof Player)){
@@ -249,8 +217,7 @@ public class MyCmd implements CommandExecutor{
 				return true;
 			}
 			Player player = (Player) sender;
-			//if (MyPortals.debug) player.sendMessage("id, data = "+player.getTargetBlock(null, 100).getTypeId()+", "+player.getTargetBlock(null, 100).getData());
-
+			
 			// get looked location
 			Location viewLoc = getTarget(player);
 			if (viewLoc == null){
@@ -265,10 +232,7 @@ public class MyCmd implements CommandExecutor{
 				return true;
 			}
 			
-			
-			// LOOKING PORTAL COMMANDS
-			
-			
+			// process given subcommand
 			switch (subCmd){
 			
 			case "info":
@@ -293,7 +257,7 @@ public class MyCmd implements CommandExecutor{
 				return true;
 				
 			case "give":
-				player.sendMessage("portal give: " + msg(this.plugin.give(portal, args[1], player.getName())));
+				player.sendMessage("portal give: "+msg(plugin.give(portal, args[1], player.getName())));
 				return true;
 				
 			}
@@ -304,7 +268,7 @@ public class MyCmd implements CommandExecutor{
 	
 	// UTILITY
 	
-	public String msg(String key){
+	private String msg(String key){
 		if (key.length() < 20 && lang.msg.containsKey(key)) return lang.msg.get(key);
 		else return key;
 	}

@@ -1,61 +1,53 @@
 package cl.netgamer.myportals;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
-import java.util.Set;
-import org.bukkit.configuration.file.FileConfiguration;
 
-public class Lang
-{
-  private ConfigAccessor conf = null;
-  Map<String, String> msg = new HashMap();
-  
-  public Lang(MyPortals plugin, String locale)
-  {
-    this.conf = new ConfigAccessor(plugin, "locale-" + locale + ".yml");
-    this.conf.saveDefaultConfig();
-    
+public class Lang {
 
+	// PROPERTIES
+	
+	private ConfigAccessor conf = null;
+	Map<String, String> msg = new HashMap<String, String>();
 
-    this.msg.put("help1", "Â§E");
-    this.msg.put("help2", "Â§E");
-    this.msg.put("help3", "Â§E");
-    this.msg.put("help4", "Â§E");
-    this.msg.put("tags", "");
-    this.msg.put("activatedOk", "Â§B");
-    this.msg.put("bePlayer", "Â§D");
-    this.msg.put("argsNotMatch", "Â§D");
-    this.msg.put("unknownCmd", "Â§D");
-    this.msg.put("listHead", "Â§E");
-    this.msg.put("tooFar", "Â§D");
-    this.msg.put("lookNotPortal", "Â§D");
-    this.msg.put("hidden", "Â§D");
-    this.msg.put("locked", "Â§D");
-    this.msg.put("invalidName", "Â§D");
-    this.msg.put("busyName", "Â§D");
-    this.msg.put("namedOk", "Â§B");
-    this.msg.put("nameNotFound", "Â§D");
-    this.msg.put("diffrentWorlds", "Â§D");
-    this.msg.put("noName", "Â§D");
-    this.msg.put("destOk", "Â§B");
-    this.msg.put("privacyOk", "Â§B");
-    this.msg.put("notYours", "Â§D");
-    this.msg.put("offlinePlayer", "Â§D");
-    this.msg.put("giveOk", "Â§B");
-    this.msg.put("beConsole", "Â§D");
-    this.msg.put("mustConfirm", "Â§D");
-    this.msg.put("rebuilding", "Â§E");
-    this.msg.put("rebuilded", "Â§B");
-    String key;
-    for (Iterator localIterator = this.msg.keySet().iterator(); localIterator.hasNext(); this.msg.put(key, (String)this.msg.get(key) + this.conf.getConfig().getString(key))) {
-      key = (String)localIterator.next();
-    }
-  }
+	// CONSTRUCTORS
+	
+	public Lang(MyPortals plugin, String locale){
+		conf = new ConfigAccessor(plugin, "locale-"+locale+".yml");
+		conf.saveDefaultConfig();
+
+		// §B: cyan: success - §E: yellow: info - §D: magenta: error
+		// paragraph sign "§": win = alt+21 (keypad), linux = alt+167 (keypad)
+		msg.put("help1", "§E");
+		msg.put("help2", "§E");
+		msg.put("help3", "§E");
+		msg.put("help4", "§E");
+		msg.put("tags", "");
+		msg.put("activatedOk", "§B");
+		msg.put("bePlayer", "§D");
+		msg.put("argsNotMatch", "§D");
+		msg.put("unknownCmd", "§D");
+		msg.put("listHead", "§E");
+		msg.put("tooFar", "§D");
+		msg.put("lookNotPortal", "§D");
+		msg.put("hidden", "§D");
+		msg.put("locked", "§D");
+		msg.put("invalidName", "§D");
+		msg.put("busyName", "§D");
+		msg.put("namedOk", "§B");
+		msg.put("nameNotFound", "§D");
+		msg.put("diffrentWorlds", "§D");
+		msg.put("noName", "§D");
+		msg.put("destOk", "§B");
+		msg.put("privacyOk", "§B");
+		msg.put("notYours", "§D");
+		msg.put("offlinePlayer", "§D");
+		msg.put("giveOk", "§B");
+		msg.put("beConsole", "§D");
+		msg.put("mustConfirm", "§D");
+		msg.put("rebuilding", "§E");
+		msg.put("rebuilded", "§B");
+		
+		for (String key: msg.keySet()) msg.put(key, msg.get(key)+conf.getConfig().getString(key));
+	}
 }
-
-
-/* Location:           C:\Users\AT-HE\Desktop\games-setup\minecraft\bukkit\1.8.3\MyPortals.jar
- * Qualified Name:     cl.netgamer.myportals.Lang
- * JD-Core Version:    0.7.0.1
- */

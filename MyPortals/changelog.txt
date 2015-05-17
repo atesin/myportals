@@ -1,6 +1,9 @@
 
 version history:
 
+v17 dev
+- TO FILL IN , try to fix lamps problem
+
 v16
 - better mc1.8.3 compatibility and portal shape bugfixes
 
