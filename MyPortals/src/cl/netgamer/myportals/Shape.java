@@ -9,18 +9,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import net.minecraft.server.v1_8_R2.World;
+import net.minecraft.server.v1_8_R3.World;
 
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.Server;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
-import org.bukkit.craftbukkit.v1_8_R2.CraftWorld;
-import org.bukkit.event.block.BlockPlaceEvent;
-import org.bukkit.inventory.ItemStack;
+import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
 
 public class Shape {
 	
@@ -67,7 +62,8 @@ public class Shape {
 	}
 	
 	HashSet<Byte> getTransparents(){
-		HashSet<Byte> transparents = new HashSet<Byte>(){{add((byte)0);}};
+		HashSet<Byte> transparents = new HashSet<Byte>();
+		transparents.add((byte)0);
 		for (ArrayList<Number> col: active.values()) for (Number id: col) if (id != null && !transparents.contains(id)) transparents.add(id.byteValue());
 		transparents.remove(active.get("center").get(0).byteValue());
 		return transparents;
@@ -246,7 +242,7 @@ class ShapeReplace implements ShapeInterface{
 			
 			//Block b = e.getClickedBlock();
 			Block b = loc.getBlock();
-		    BlockState blockState = b.getState();
+		    //BlockState blockState = b.getState();
 
 		    switchLamp(b, true);
 					  

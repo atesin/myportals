@@ -8,8 +8,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import net.minecraft.server.v1_8_R2.BlockState;
-
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.event.EventHandler;
@@ -86,7 +84,7 @@ public final class MyListener implements Listener{
 	}
 	
 	/** it seems when place fire on redlamp it generates multi placement and powers off the lamp */
-	@EventHandler
+	/* @EventHandler
 	public void onBlockMultiPlaceEvent(BlockMultiPlaceEvent event){
 		if (portalBlocks.containsKey(event.getBlock().getLocation())){
 			//event.setCancelled(true);
@@ -101,7 +99,7 @@ public final class MyListener implements Listener{
 				
 			}
 		}
-	}
+	} */
 	
 	
 	// hay un evento que apaga la lampara, no es corriente de redstone

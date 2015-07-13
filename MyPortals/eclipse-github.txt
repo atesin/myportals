@@ -107,3 +107,49 @@ http://stackoverflow.com/questions/19474186/egit-rejected-non-fast-forward
     Push your changes to the remote repository.
 
     Go have a tasty beverage, congratulating yourself. Take the rest of the day off.
+
+----------------------------------------
+
+CREATE GITHUB REPO + INITIAL PUSH
+
+you have
+
+- github account with your pc ssh key added
+- a local eclipse project with source
+
+in github
+
+- go to your profile - repositories tab - new (green button)
+- yourNewRepo - clone url - ssh - COPY URL
+
+in eclipse - git repos view
+
+- yourNewRepo - expand - remotes - rclick - PASTE URI - next - (delete dir before *) - finish
+- (* (commit before) click browse - move repo dir to another location (backup) - click back + click next)
+
+in eclipse - pkg explorer
+
+- myProj - rclick - team - share - git
+- repo: select created repo - finish
+- config your libs and do your push
+
+-----------------------------------
+
+ROLLBACK WITH PREVIOUS COMMIT
+
+- pkg expl - myProj - delete all sources first
+- pkg expl - myProj - rclick - replace with - commit - select one
+- (edit sources and) push
+
+WORK WITH BRANCHES
+
+------------------------------
+
+RECONECT REMOTE REPO
+
+- git view - myRepo - rclick - properties - config - remove all keys and values
+
+
+
+
+
