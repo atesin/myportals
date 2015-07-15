@@ -3,11 +3,10 @@ main: cl.netgamer.myportals.MyPortals
 version: 17
 
 commands:
-   portal:
-      description: implements user created portals.
-      usage: "/portal: show available subcommands"
-      #permission: <plugin name>.basic
-      #permission-message: You don't have <permission>
+  portal:
+    description: implements user created portals.
+    usage: "/portal: show available subcommands"
+    aliases: [p]
 
 # aqui tambien se configuran los permisos
 # no usar la letra enye

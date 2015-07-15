@@ -9,13 +9,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import net.minecraft.server.v1_8_R3.World;
-
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
-import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
 
 public class Shape {
 	
@@ -235,60 +232,11 @@ class ShapeCompare implements ShapeInterface{
 class ShapeReplace implements ShapeInterface{
 	
 	public boolean use(Location loc, Number ref, Location base) throws Exception{
-		// if replacing by red lamp on
-		if (ref.intValue() == 124){
-			
-			// code taken from lampcontrol plugin to do some tests
-			
-			//Block b = e.getClickedBlock();
-			Block b = loc.getBlock();
-		    //BlockState blockState = b.getState();
-
-		    switchLamp(b, true);
-					  
-		    // falta el player
-			//BlockPlaceEvent checkBuildPerms = new BlockPlaceEvent(b, blockState, b, new ItemStack(Material.REDSTONE_LAMP_ON), e.getPlayer(), true);
-			/* BlockPlaceEvent checkBuildPerms = new BlockPlaceEvent(b, blockState, b, new ItemStack(Material.REDSTONE_LAMP_ON), Bukkit.getPlayerExact("ATESIN"), true);
-		    Bukkit.getPluginManager().callEvent(checkBuildPerms);
-		    if (checkBuildPerms.isCancelled())
-		    {
-		      switchLamp(b, false);
-		      MyPortals.log("You don't have permissions to build here!");
-		    } */
-
-			return true;
-		}
 		loc.getBlock().setTypeId(ref.intValue());
 		return true;
 	}
 	
 	
-	  public static void switchLamp(Block b, boolean lighting)
-			    throws Exception
-			  {
-			    World w = ((CraftWorld)b.getWorld()).getHandle();
-			    if (lighting)
-			    {
-			      setWorldStatic(w, true);
-			      b.setType(Material.REDSTONE_LAMP_ON);
-			      setWorldStatic(w, false);
-			    }
-			    else
-			    {
-			      b.setType(Material.REDSTONE_LAMP_OFF);
-			    }
-			  }
-
-	
-	
-	private static void setWorldStatic(World world, boolean static_boolean)
-		    throws Exception
-		  {
-		    Field static_field = World.class.getDeclaredField("isClientSide");
-		    
-		    static_field.setAccessible(true);
-		    static_field.set(world, Boolean.valueOf(static_boolean));
-		  }
 	
 }
 

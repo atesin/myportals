@@ -14,6 +14,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import cl.netgamer.tabtext.TabText;
 
+// some popup = http://bukkit.org/threads/itemmessage-use-item-metadata-to-create-popup-messages.167979/
+
 public final class MyPortals extends JavaPlugin{
 	
 	// FOR DEBUGGING
