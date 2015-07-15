@@ -1,14 +1,12 @@
 
 version history:
 
-v18
+v17
 
-- kill nms methods for redstone lamps (now uses sea lanterns), so no more specific version compilations!
+- thanks of new sea lanterns, no more need to try lighted redstone lamps (allows nms methods removal)
+- no more version specific compilations due nms methods removal
 - added "/p" alias
-- todo: tooltips, popups, sound, to travel does (type?) damage, use material names
-
-v17 dev
-- TO FILL IN , try to fix lamps problem
+- todo: travel gets damage instead xp, use material names, sound+particles, tooltips+popups, etc
 
 v16
 - better mc1.8.3 compatibility and portal shape bugfixes
