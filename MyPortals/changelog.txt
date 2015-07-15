@@ -3,8 +3,8 @@ version history:
 
 v18
 
-- kill the need of nms methods for "turned on redstone lamp", now can use sea lanterns :D
-- dynamic command alias registration (ootb, read about bukkit.yml and commands.yml)
+- kill nms methods for redstone lamps (now uses sea lanterns), so no more specific version compilations!
+- added "/p" alias
 - todo: tooltips, popups, sound, to travel does (type?) damage, use material names
 
 v17 dev
